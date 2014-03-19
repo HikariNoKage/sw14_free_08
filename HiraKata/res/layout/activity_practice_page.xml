@@ -14,6 +14,7 @@
 
         <ImageView
             android:id="@+id/iconSmall"
+            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@drawable/ic_launcher" />
@@ -22,11 +23,12 @@
             android:id="@+id/lageText"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="Large Text"
+            android:text="@string/lv_name_largeText"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ImageButton
             android:id="@+id/soundButton"
+            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@android:drawable/ic_menu_slideshow" />
@@ -53,24 +55,28 @@
 
         <ImageButton
             android:id="@+id/backButton"
+            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@android:drawable/ic_media_previous" />
 
         <ImageButton
             android:id="@+id/drawButton"
+            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@android:drawable/ic_menu_edit" />
 
         <ImageButton
             android:id="@+id/deleteButton"
+            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@android:drawable/ic_menu_delete" />
 
         <ImageButton
             android:id="@+id/nextButton"
+            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@android:drawable/ic_media_play" />
