@@ -6,7 +6,7 @@
     <string name="title_activity_practice_page">PracticePage</string>
     <string name="description">ImageButton</string>
     <string name="bt_name_hira">Hiragana</string>
-    <string name="bt_name_kata">Katagana</string>
+    <string name="bt_name_kata">Katakana</string>
     <string name="bt_name_all">All</string>
     <string name="lv_name_largeText">TestText</string>
     

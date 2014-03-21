@@ -21,24 +21,27 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int a=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int All=0x7f08000b;
-        public static final int Hiragana=0x7f08000c;
+        public static final int All=0x7f08000f;
+        public static final int Hiragana=0x7f08000b;
         public static final int Katakana=0x7f08000d;
-        public static final int action_settings=0x7f08000e;
+        public static final int action_settings=0x7f080010;
         public static final int backButton=0x7f080006;
         public static final int deleteButton=0x7f080008;
         public static final int drawButton=0x7f080007;
         public static final int drawing=0x7f080004;
         public static final int iconSmall=0x7f080001;
         public static final int lageText=0x7f080002;
-        public static final int linearLayout1=0x7f08000a;
         public static final int linearLayoutBottom=0x7f080005;
         public static final int linearLayoutTop=0x7f080000;
         public static final int nextButton=0x7f080009;
         public static final int soundButton=0x7f080003;
+        public static final int tableRow1=0x7f08000a;
+        public static final int tableRow2=0x7f08000c;
+        public static final int tableRow3=0x7f08000e;
     }
     public static final class layout {
         public static final int activity_practice_page=0x7f030000;

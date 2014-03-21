@@ -14,9 +14,9 @@
 
         <ImageView
             android:id="@+id/iconSmall"
-            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:contentDescription="@string/description"
             android:src="@drawable/ic_launcher" />
 
         <TextView
@@ -28,9 +28,9 @@
 
         <ImageButton
             android:id="@+id/soundButton"
-            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:contentDescription="@string/description"
             android:src="@android:drawable/ic_menu_slideshow" />
 
     </LinearLayout>
@@ -38,13 +38,13 @@
     <bl.DrawingPanel
         android:id="@+id/drawing"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="3dp"
         android:layout_weight="1"
-        android:background="#AAA" />
+        android:background="#FFF" />
 
     <LinearLayout
         android:id="@+id/linearLayoutBottom"

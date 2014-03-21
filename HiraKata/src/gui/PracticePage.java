@@ -5,6 +5,13 @@ import bl.DrawingPanel;
 import com.example.hirakata.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Picture;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,10 +26,10 @@ public class PracticePage extends Activity implements OnClickListener {
 
 	@SuppressWarnings("unused")
 	private TextView largeText;
-	
+
 	@SuppressWarnings("unused")
 	private ImageView iconSmall;
-	
+
 	private DrawingPanel dpanel;
 
 	@Override
@@ -46,6 +53,10 @@ public class PracticePage extends Activity implements OnClickListener {
 		this.iconSmall = (ImageView) findViewById(R.id.iconSmall);
 		this.dpanel = (DrawingPanel) findViewById(R.id.drawing);
 
+		BitmapDrawable bit = (BitmapDrawable) this.getResources().getDrawable(
+				R.drawable.a);
+		this.iconSmall.setImageDrawable(bit);
+
 	}
 
 	@Override
@@ -53,20 +64,26 @@ public class PracticePage extends Activity implements OnClickListener {
 
 		if (view.getId() == R.id.drawButton) {
 			this.dpanel.setDrawAble(true);
-			this.dpanel.newDrawing();
+			// this.dpanel.newDrawing();
 			this.dpanel.setColor("BLACK");
 			this.dpanel.setStrokeWidth(15);
 			this.dpanel.invalidate();
 
 		} else if (view.getId() == R.id.deleteButton) {
 
+			Bitmap drawable = BitmapFactory.decodeResource(getResources(), R.drawable.a);			
+			this.dpanel.newDrawing(drawable);
+			this.largeText.setText("delete");
+			this.dpanel.invalidate();
+			
 		} else if (view.getId() == R.id.nextButton) {
 
 		} else if (view.getId() == R.id.backButton) {
 
 		}
-
 	};
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

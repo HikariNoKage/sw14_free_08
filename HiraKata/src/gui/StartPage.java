@@ -3,10 +3,10 @@ package gui;
 import bl.HiraKataApplication;
 
 import com.example.hirakata.R;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +26,14 @@ public class StartPage extends Activity implements OnClickListener {
 		this.bt_hira = (Button) findViewById(R.id.Hiragana);
 		this.bt_kata = (Button) findViewById(R.id.Katakana);
 
+		DisplayMetrics displaymetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+		int height  = (int)(displaymetrics.heightPixels / 3.5);
+		
+	    bt_all.setHeight(height);
+	    bt_hira.setHeight(height);
+	    bt_kata.setHeight(height);
+		
 		this.bt_all.setOnClickListener(this);
 		this.bt_hira.setOnClickListener(this);
 		this.bt_kata.setOnClickListener(this);

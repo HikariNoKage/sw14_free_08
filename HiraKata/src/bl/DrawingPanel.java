@@ -1,5 +1,6 @@
 package bl;
 
+import android.R;
 import android.content.Context;
 import android.view.View;
 import android.util.AttributeSet;
@@ -7,9 +8,15 @@ import android.util.AttributeSet;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Picture;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Xfermode;
+import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 
 public class DrawingPanel extends View {
@@ -38,9 +45,6 @@ public class DrawingPanel extends View {
 		this.dPaint.setStrokeCap(Paint.Cap.ROUND);
 
 		this.cPaint = new Paint(Paint.DITHER_FLAG);
-		
-		
-
 	}
 
 	public void setColor(String newColor) {
@@ -57,8 +61,30 @@ public class DrawingPanel extends View {
 		this.drawAble = drawAble;
 	}
 
-	public void newDrawing() {
-		this.dCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+	public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+
+		int width = bm.getWidth();
+		int height = bm.getHeight();
+		float scaleWidth = ((float) newWidth) / width;
+		float scaleHeight = ((float) newHeight) / height;
+
+		// create a matrix for the manipulation
+		Matrix matrix = new Matrix();
+		// resize the bit map
+		matrix.postScale(scaleWidth, scaleHeight);
+		// recreate the new Bitmap
+		Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height,
+				matrix, false);
+		return resizedBitmap;
+	}
+
+	public void newDrawing(Bitmap bitmap) {
+
+		this.dCanvas.drawColor(Color.WHITE);
+
+		this.dCanvas.drawBitmap(getResizedBitmap(bitmap, this.getHeight(), this.getWidth()), getMatrix(), null);
+
+		this.dPath.reset();
 		this.invalidate();
 	}
 
@@ -75,7 +101,7 @@ public class DrawingPanel extends View {
 				this.dPath.lineTo(xCoordinate, yCoordinate);
 			} else if (event.getAction() == MotionEvent.ACTION_POINTER_UP) {
 				this.dCanvas.drawPath(this.dPath, this.dPaint);
-				this.dPath.reset();
+				// this.dPath.reset();
 			} else {
 				return false;
 			}

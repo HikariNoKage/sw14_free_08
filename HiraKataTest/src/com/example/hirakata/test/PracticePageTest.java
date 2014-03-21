@@ -33,6 +33,13 @@ public class PracticePageTest extends ActivityInstrumentationTestCase2<PracticeP
 		this.pp_test.drag(150.0f, 210.0f, 200.0f, 250.0f, 3);
 	}
 	
+	public void testDelete() throws Exception
+	{
+		this.pp_test.clickOnImageButton(2);
+		this.pp_test.drag(150.0f, 210.0f, 200.0f, 250.0f, 3);
+		this.pp_test.clickOnImageButton(3);
+		//To do: check if pixel are deleted
+	}
 	
 	
 	
