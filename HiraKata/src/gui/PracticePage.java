@@ -1,22 +1,13 @@
 package gui;
 
-import java.io.File;
 import java.util.Vector;
-
 import bl.DrawingPanel;
-
+import bl.HiraKataApplication;
 import com.example.hirakata.R;
 import android.os.Bundle;
-import android.os.Environment;
 import android.app.Activity;
-import android.content.ContextWrapper;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Picture;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +27,7 @@ public class PracticePage extends Activity implements OnClickListener {
 	private ImageView iconSmall;
 	private DrawingPanel dpanel;
 	private Vector<Integer> allPicRes;
+	private HiraKataApplication drawableNumber;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,23 +36,33 @@ public class PracticePage extends Activity implements OnClickListener {
 
 		allPicRes = new Vector<Integer>();
 
-		// getAllDrawableResources();
+		if (getAllDrawableResources()) {
 
-		this.soundButton = (ImageButton) findViewById(R.id.soundButton);
-		this.backButton = (ImageButton) findViewById(R.id.backButton);
-		this.drawButton = (ImageButton) findViewById(R.id.drawButton);
-		this.deleteButton = (ImageButton) findViewById(R.id.deleteButton);
-		this.nextButton = (ImageButton) findViewById(R.id.nextButton);
+			// Toast.makeText(this, "TEST: " + this.allPicRes.size(),
+			// Toast.LENGTH_LONG).show();
 
-		this.soundButton.setOnClickListener(this);
-		this.backButton.setOnClickListener(this);
-		this.drawButton.setOnClickListener(this);
-		this.deleteButton.setOnClickListener(this);
-		this.nextButton.setOnClickListener(this);
+			this.soundButton = (ImageButton) findViewById(R.id.soundButton);
+			this.backButton = (ImageButton) findViewById(R.id.backButton);
+			this.drawButton = (ImageButton) findViewById(R.id.drawButton);
+			this.deleteButton = (ImageButton) findViewById(R.id.deleteButton);
+			this.nextButton = (ImageButton) findViewById(R.id.nextButton);
 
-		this.largeText = (TextView) findViewById(R.id.lageText);
-		this.iconSmall = (ImageView) findViewById(R.id.iconSmall);
-		this.dpanel = (DrawingPanel) findViewById(R.id.drawing);
+			this.soundButton.setOnClickListener(this);
+			this.backButton.setOnClickListener(this);
+			this.drawButton.setOnClickListener(this);
+			this.deleteButton.setOnClickListener(this);
+			this.nextButton.setOnClickListener(this);
+
+			this.largeText = (TextView) findViewById(R.id.lageText);
+			this.iconSmall = (ImageView) findViewById(R.id.iconSmall);
+			this.dpanel = (DrawingPanel) findViewById(R.id.drawing);
+
+			showKana(this.allPicRes.get(0));
+
+		} else {
+			Toast.makeText(this, "Error: Could not load drawable images!!",
+					Toast.LENGTH_LONG).show();
+		}
 
 	}
 
@@ -74,30 +76,9 @@ public class PracticePage extends Activity implements OnClickListener {
 			this.dpanel.invalidate();
 
 		} else if (view.getId() == R.id.deleteButton) {
-
-			int id = 0;
-
-			String name = "hira_1";
-			try {
-				id = R.drawable.class.getField(name).getInt(null);
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchFieldException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			showKana(id);
-
+			showKana(this.allPicRes.get(0));
 		} else if (view.getId() == R.id.nextButton) {
 
-			// ContextWrapper c = new ContextWrapper(this);
-			Toast.makeText(this, this.getFilesDir().getPath(),
-					Toast.LENGTH_LONG).show();
 		} else if (view.getId() == R.id.backButton) {
 
 		}
@@ -109,19 +90,22 @@ public class PracticePage extends Activity implements OnClickListener {
 		this.dpanel.invalidate();
 	}
 
-	/*
-	 * public void getAllDrawableResources() {
-	 * 
-	 * 
-	 * File file = new File("com.example.hirakata/res/drawable-hdpi"); File[]
-	 * files = file.listFiles(); int res = 0;
-	 * 
-	 * 
-	 * if (files != null) { for (int i = 0; i <= files.length; i++) { res =
-	 * this.getResources().getIdentifier("hira_" + i, "drawable-hdpi",
-	 * this.getPackageName()); allPicRes.add(res); } } else { int i =
-	 * R.drawable.ic_launcher; allPicRes.add(i); } }
-	 */
+	public boolean getAllDrawableResources() {
+		drawableNumber = ((HiraKataApplication) this.getApplicationContext());
+		int maxDrawable = drawableNumber.getNumberOfDrawables();
+		int resource = 0;
+
+		try {
+			for (int i = 0; i < maxDrawable; i++) {
+				resource = R.drawable.class.getField("hira_" + i).getInt(null);
+				this.allPicRes.add(resource);
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

@@ -15,7 +15,7 @@ import android.widget.Button;
 public class StartPage extends Activity implements OnClickListener {
 
 	private Button bt_all, bt_hira, bt_kata;
-	HiraKataApplication hk_mode;
+	private HiraKataApplication hk_mode;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
