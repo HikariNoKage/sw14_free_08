@@ -9,8 +9,8 @@
         android:targetSdkVersion="17" />
 
     <application
-        android:allowBackup="true"
         android:name="bl.HiraKataApplication"
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -26,6 +26,10 @@
         <activity
             android:name="gui.PracticePage"
             android:label="@string/title_activity_practice_page" >
+        </activity>
+        <activity
+            android:name="gui.FirstPage"
+            android:label="@string/title_activity_first_page" >
         </activity>
     </application>
 

@@ -9,6 +9,13 @@
     <string name="bt_name_kata">Katakana</string>
     <string name="bt_name_all">All</string>
     <string name="lv_name_largeText">TestText</string>
-    
-
+    <string name="title_activity_first_page">FirstPage</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="bt_practice">Practice</string>
+    <string name="bt_test">Make a Test</string>
+    <string name="bt_table">Show Kana Table</string>
+    <string name="cb_sorted">Show in order</string>
+    <string name="cb_random">Show random</string>
+    <string name="cb_test_all">Test all</string>
+    <string name="cb_test_red">Test only red</string>
 </resources>
