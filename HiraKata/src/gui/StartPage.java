@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class StartPage extends Activity implements OnClickListener {
 
@@ -28,12 +29,12 @@ public class StartPage extends Activity implements OnClickListener {
 
 		DisplayMetrics displaymetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-		int height  = (int)(displaymetrics.heightPixels / 3.5);
-		
-	    bt_all.setHeight(height);
-	    bt_hira.setHeight(height);
-	    bt_kata.setHeight(height);
-		
+		int height = (int) (displaymetrics.heightPixels / 3.5);
+
+		bt_all.setHeight(height);
+		bt_hira.setHeight(height);
+		bt_kata.setHeight(height);
+
 		this.bt_all.setOnClickListener(this);
 		this.bt_hira.setOnClickListener(this);
 		this.bt_kata.setOnClickListener(this);
@@ -46,14 +47,17 @@ public class StartPage extends Activity implements OnClickListener {
 		hk_mode = ((HiraKataApplication) this.getApplicationContext());
 
 		if (view.getId() == R.id.All) {
-			hk_mode.setMode("all");
+			hk_mode.setMode("all_");
+			Toast.makeText(this, "NO test Kana!!!!!", Toast.LENGTH_LONG).show();
 		} else if (view.getId() == R.id.Hiragana) {
-			hk_mode.setMode("hira");
+			hk_mode.setMode("hira_");
+			Toast.makeText(this, "NO test Hiragana!!!!!", Toast.LENGTH_LONG)
+					.show();
 		} else if (view.getId() == R.id.Katakana) {
-			hk_mode.setMode("kata");
+			hk_mode.setMode("kata_");
+			Intent intent = new Intent(StartPage.this, PracticePage.class);
+			StartPage.this.startActivity(intent);
 		}
-		Intent intent = new Intent(StartPage.this, PracticePage.class);
-		StartPage.this.startActivity(intent);
 	}
 
 	@Override

@@ -18,4 +18,7 @@
     <string name="cb_random">Show random</string>
     <string name="cb_test_all">Test all</string>
     <string name="cb_test_red">Test only red</string>
+    <string name="next_toast">No next character</string>
+    <string name="prev_toast">No previous character!</string>
+
 </resources>

@@ -21,12 +21,10 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int hira_0=0x7f020000;
-        public static final int hira_1=0x7f020001;
-        public static final int hira_2=0x7f020002;
-        public static final int hira_3=0x7f020003;
-        public static final int hira_test=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
+        public static final int ic_launcher=0x7f020000;
+        public static final int kata_0=0x7f020001;
+        public static final int kata_1=0x7f020002;
+        public static final int kata_2=0x7f020003;
     }
     public static final class id {
         public static final int All=0x7f080016;
@@ -80,6 +78,8 @@ public final class R {
         public static final int description=0x7f050003;
         public static final int hello_world=0x7f050009;
         public static final int lv_name_largeText=0x7f050007;
+        public static final int next_toast=0x7f050011;
+        public static final int prev_toast=0x7f050012;
         public static final int title_activity_first_page=0x7f050008;
         public static final int title_activity_practice_page=0x7f050002;
     }

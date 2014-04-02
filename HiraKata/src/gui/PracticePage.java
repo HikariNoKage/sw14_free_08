@@ -27,7 +27,8 @@ public class PracticePage extends Activity implements OnClickListener {
 	private ImageView iconSmall;
 	private DrawingPanel dpanel;
 	private Vector<Integer> allPicRes;
-	private HiraKataApplication drawableNumber;
+	private HiraKataApplication application;
+	boolean start = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,53 +37,82 @@ public class PracticePage extends Activity implements OnClickListener {
 
 		allPicRes = new Vector<Integer>();
 
-		if (getAllDrawableResources()) {
+		// getAllDrawableResources();
 
-			// Toast.makeText(this, "TEST: " + this.allPicRes.size(),
-			// Toast.LENGTH_LONG).show();
+		// Toast.makeText(this, "TEST: " + this.allPicRes.size(),
+		// Toast.LENGTH_LONG).show();
 
-			this.soundButton = (ImageButton) findViewById(R.id.soundButton);
-			this.backButton = (ImageButton) findViewById(R.id.backButton);
-			this.drawButton = (ImageButton) findViewById(R.id.drawButton);
-			this.deleteButton = (ImageButton) findViewById(R.id.deleteButton);
-			this.nextButton = (ImageButton) findViewById(R.id.nextButton);
+		this.soundButton = (ImageButton) findViewById(R.id.soundButton);
+		this.backButton = (ImageButton) findViewById(R.id.backButton);
+		this.drawButton = (ImageButton) findViewById(R.id.drawButton);
+		this.deleteButton = (ImageButton) findViewById(R.id.deleteButton);
+		this.nextButton = (ImageButton) findViewById(R.id.nextButton);
 
-			this.soundButton.setOnClickListener(this);
-			this.backButton.setOnClickListener(this);
-			this.drawButton.setOnClickListener(this);
-			this.deleteButton.setOnClickListener(this);
-			this.nextButton.setOnClickListener(this);
+		this.soundButton.setOnClickListener(this);
+		this.backButton.setOnClickListener(this);
+		this.drawButton.setOnClickListener(this);
+		this.deleteButton.setOnClickListener(this);
+		this.nextButton.setOnClickListener(this);
 
-			this.largeText = (TextView) findViewById(R.id.lageText);
-			this.iconSmall = (ImageView) findViewById(R.id.iconSmall);
-			this.dpanel = (DrawingPanel) findViewById(R.id.drawing);
-
-			showKana(this.allPicRes.get(0));
-
-		} else {
-			Toast.makeText(this, "Error: Could not load drawable images!!",
-					Toast.LENGTH_LONG).show();
-		}
+		this.largeText = (TextView) findViewById(R.id.lageText);
+		this.iconSmall = (ImageView) findViewById(R.id.iconSmall);
+		this.dpanel = (DrawingPanel) findViewById(R.id.drawing);
 
 	}
 
 	@Override
 	public void onClick(View view) {
 
+		application = ((HiraKataApplication) this.getApplicationContext());
+		int actualKana = application.getIndexOfUsedKana();
+
+		if (start) {
+			getAllDrawableResources();
+			showKana(this.allPicRes.get(actualKana));
+			start = false;
+		}
+		
 		if (view.getId() == R.id.drawButton) {
-			this.dpanel.setDrawAble(true);
-			this.dpanel.setColor("BLACK");
-			this.dpanel.setStrokeWidth(15);
-			this.dpanel.invalidate();
-
+			drawKana();
 		} else if (view.getId() == R.id.deleteButton) {
-			showKana(this.allPicRes.get(0));
+			showKana(this.allPicRes.get(actualKana));
 		} else if (view.getId() == R.id.nextButton) {
-
+			nextKana(actualKana);
 		} else if (view.getId() == R.id.backButton) {
-
+			previousKana(actualKana);
 		}
 	};
+
+	public void drawKana() {
+		this.dpanel.setDrawAble(true);
+		this.dpanel.setColor("BLACK");
+		this.dpanel.setStrokeWidth(15);
+		this.dpanel.invalidate();
+	}
+
+	public void previousKana(int actualKana) {
+		actualKana--;
+		if (actualKana >= 0) {
+			showKana(this.allPicRes.get(actualKana));
+			application.setIndexOfUsedKana(actualKana);
+			this.dpanel.invalidate();
+		} else {
+			Toast.makeText(this, this.getString(R.string.prev_toast),
+					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	public void nextKana(int actualKana) {
+		actualKana++;
+		if (application.getNumberOfDrawables() > actualKana) {
+			showKana(this.allPicRes.get(actualKana));
+			application.setIndexOfUsedKana(actualKana);
+			this.dpanel.invalidate();
+		} else {
+			Toast.makeText(this, this.getString(R.string.next_toast),
+					Toast.LENGTH_LONG).show();
+		}
+	}
 
 	public void showKana(int id) {
 		Bitmap drawable = BitmapFactory.decodeResource(getResources(), id);
@@ -91,13 +121,29 @@ public class PracticePage extends Activity implements OnClickListener {
 	}
 
 	public boolean getAllDrawableResources() {
-		drawableNumber = ((HiraKataApplication) this.getApplicationContext());
-		int maxDrawable = drawableNumber.getNumberOfDrawables();
+		this.allPicRes.clear();
+		application = ((HiraKataApplication) this.getApplicationContext());
+		int maxDrawable = application.getNumberOfDrawables();
 		int resource = 0;
+		String mode = application.getMode();
+
+		if (mode.equals("all_")) {
+			mode = "hira_";
+			try {
+				for (int i = 0; i < maxDrawable; i++) {
+					resource = R.drawable.class.getField(mode + i).getInt(null);
+					this.allPicRes.add(resource);
+					mode = "kata_";
+				}
+			} catch (Exception e) {
+				return false;
+			}
+			mode = "kata_";
+		}
 
 		try {
 			for (int i = 0; i < maxDrawable; i++) {
-				resource = R.drawable.class.getField("hira_" + i).getInt(null);
+				resource = R.drawable.class.getField(mode + i).getInt(null);
 				this.allPicRes.add(resource);
 			}
 			return true;

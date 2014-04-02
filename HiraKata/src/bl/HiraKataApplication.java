@@ -5,8 +5,8 @@ import android.app.Application;
 public class HiraKataApplication extends Application {
 
 	String mode = "fail";
-	int numberOfDrawables = 4; //4 for testing should be 100
-	
+	int numberOfDrawables = 3; //3 for testing should be 100
+	int indexOfUsedKana = 0;
 
 	public int getNumberOfDrawables() {
 		return this.numberOfDrawables;
@@ -22,6 +22,14 @@ public class HiraKataApplication extends Application {
 
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+
+	public int getIndexOfUsedKana() {
+		return indexOfUsedKana;
+	}
+
+	public void setIndexOfUsedKana(int indexOfUsedKana) {
+		this.indexOfUsedKana = indexOfUsedKana;
 	}
 
 }
