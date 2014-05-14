@@ -95,8 +95,13 @@ public class PracticePage extends Activity implements OnClickListener {
 		if (application.isOrder()) {
 			actualKana--;
 		} else {
-			if (this.shownKana.size() > 0) {
-				actualKana = this.shownKana.elementAt(this.shownKana.size() - 1);
+			if ((this.shownKana.size() > 0)
+					&& (this.shownKana.indexOf(actualKana) > 0)) {
+				actualKana = this.shownKana.elementAt(this.shownKana
+						.indexOf(actualKana) - 1);
+			} else {
+				Toast.makeText(this, this.getString(R.string.prev_toast),
+						Toast.LENGTH_LONG).show();
 			}
 		}
 		if (actualKana >= 0) {
@@ -112,27 +117,35 @@ public class PracticePage extends Activity implements OnClickListener {
 	public void nextKana(int actualKana) {
 		if (application.isOrder()) {
 			actualKana++;
-		} else {
+			if (application.getNumberOfDrawables() > actualKana) {
+				showKana(this.allPicRes.get(actualKana));
+				application.setIndexOfUsedKana(actualKana);
+				this.dpanel.invalidate();
+			} else {
+				Toast.makeText(this, this.getString(R.string.next_toast),
+						Toast.LENGTH_LONG).show();
+			}
+		}
+		if (!application.isOrder()) {
 			Random rand = new Random();
 			actualKana = rand.nextInt(this.shownKana.size());
 			int count = 0;
 			while (this.shownKana.contains(actualKana)
-					&& (count < this.shownKana.size())) {
+					&& (count < this.allPicRes.size())) {
 				actualKana = rand.nextInt(this.shownKana.size() + 1);
 				count++;
 			}
 			this.shownKana.add(actualKana);
-		}
 
-		if (application.getNumberOfDrawables() > actualKana) {
-			showKana(this.allPicRes.get(actualKana));
-			application.setIndexOfUsedKana(actualKana);
-			this.dpanel.invalidate();
-		} else {
-			Toast.makeText(this, this.getString(R.string.next_toast),
-					Toast.LENGTH_LONG).show();
+			if (application.getNumberOfDrawables() > actualKana) {
+				showKana(this.allPicRes.get(actualKana));
+				application.setIndexOfUsedKana(actualKana);
+				this.dpanel.invalidate();
+			} else {
+				Toast.makeText(this, this.getString(R.string.next_toast),
+						Toast.LENGTH_LONG).show();
+			}
 		}
-
 	}
 
 	public void showKana(int id) {
