@@ -4,6 +4,7 @@ import bl.HiraKataApplication;
 
 import com.example.hirakata.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -50,8 +51,8 @@ public class FirstPage extends Activity implements OnClickListener {
 			} else if (this.rb_random.isChecked()) {
 				this.hk_att.setOrder(false);
 			}
-			// call practice page!
-			Toast.makeText(this, "Practice!!!!!!", Toast.LENGTH_LONG).show();
+			Intent intent = new Intent(FirstPage.this, PracticePage.class);
+			FirstPage.this.startActivity(intent);
 		} else if (view.getId() == R.id.test) {
 			if (this.rb_all.isChecked()) {
 				this.hk_att.setAll(true);

@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.Random;
 import java.util.Vector;
 import bl.DrawingPanel;
 import bl.HiraKataApplication;
@@ -27,6 +28,7 @@ public class PracticePage extends Activity implements OnClickListener {
 	private ImageView iconSmall;
 	private DrawingPanel dpanel;
 	private Vector<Integer> allPicRes;
+	private Vector<Integer> shownKana;
 	private HiraKataApplication application;
 	boolean start = true;
 
@@ -36,11 +38,7 @@ public class PracticePage extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_practice_page);
 
 		allPicRes = new Vector<Integer>();
-
-		// getAllDrawableResources();
-
-		// Toast.makeText(this, "TEST: " + this.allPicRes.size(),
-		// Toast.LENGTH_LONG).show();
+		shownKana = new Vector<Integer>();
 
 		this.soundButton = (ImageButton) findViewById(R.id.soundButton);
 		this.backButton = (ImageButton) findViewById(R.id.backButton);
@@ -57,13 +55,15 @@ public class PracticePage extends Activity implements OnClickListener {
 		this.largeText = (TextView) findViewById(R.id.lageText);
 		this.iconSmall = (ImageView) findViewById(R.id.iconSmall);
 		this.dpanel = (DrawingPanel) findViewById(R.id.drawing);
+		application = ((HiraKataApplication) this.getApplicationContext());
 
+		// getAllDrawableResources();
+		// showKana(this.allPicRes.get(0));
 	}
 
 	@Override
 	public void onClick(View view) {
 
-		application = ((HiraKataApplication) this.getApplicationContext());
 		int actualKana = application.getIndexOfUsedKana();
 
 		if (start) {
@@ -71,12 +71,13 @@ public class PracticePage extends Activity implements OnClickListener {
 			showKana(this.allPicRes.get(actualKana));
 			start = false;
 		}
-		
+
 		if (view.getId() == R.id.drawButton) {
 			drawKana();
 		} else if (view.getId() == R.id.deleteButton) {
 			showKana(this.allPicRes.get(actualKana));
 		} else if (view.getId() == R.id.nextButton) {
+			this.shownKana.add(actualKana);
 			nextKana(actualKana);
 		} else if (view.getId() == R.id.backButton) {
 			previousKana(actualKana);
@@ -91,7 +92,13 @@ public class PracticePage extends Activity implements OnClickListener {
 	}
 
 	public void previousKana(int actualKana) {
-		actualKana--;
+		if (application.isOrder()) {
+			actualKana--;
+		} else {
+			if (this.shownKana.size() > 0) {
+				actualKana = this.shownKana.elementAt(this.shownKana.size() - 1);
+			}
+		}
 		if (actualKana >= 0) {
 			showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
@@ -103,7 +110,20 @@ public class PracticePage extends Activity implements OnClickListener {
 	}
 
 	public void nextKana(int actualKana) {
-		actualKana++;
+		if (application.isOrder()) {
+			actualKana++;
+		} else {
+			Random rand = new Random();
+			actualKana = rand.nextInt(this.shownKana.size());
+			int count = 0;
+			while (this.shownKana.contains(actualKana)
+					&& (count < this.shownKana.size())) {
+				actualKana = rand.nextInt(this.shownKana.size() + 1);
+				count++;
+			}
+			this.shownKana.add(actualKana);
+		}
+
 		if (application.getNumberOfDrawables() > actualKana) {
 			showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
@@ -112,6 +132,7 @@ public class PracticePage extends Activity implements OnClickListener {
 			Toast.makeText(this, this.getString(R.string.next_toast),
 					Toast.LENGTH_LONG).show();
 		}
+
 	}
 
 	public void showKana(int id) {
