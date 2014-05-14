@@ -20,5 +20,9 @@
     <string name="cb_test_red">Test only red</string>
     <string name="next_toast">No next character</string>
     <string name="prev_toast">No previous character!</string>
-
+	<string name="rb_order">Show in order</string>
+	<string name="rb_rand">Show random</string>
+	<string name="rb_all">Test all</string>
+	<string name="rb_red">Test only red</string>
+	
 </resources>

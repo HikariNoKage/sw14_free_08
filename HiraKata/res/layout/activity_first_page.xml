@@ -15,22 +15,23 @@
         android:layout_height="wrap_content"
         android:text="@string/bt_practice" />
 
-    <LinearLayout
+    <RadioGroup
+        android:id="@+id/radioPractice"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <CheckBox
-            android:id="@+id/sort"
+        <RadioButton
+            android:id="@+id/rb_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cb_sorted" />
+            android:text="@string/rb_order" />
 
-        <CheckBox
-            android:id="@+id/rand"
+        <RadioButton
+            android:id="@+id/rb_rand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cb_random" />
-    </LinearLayout>
+            android:text="@string/rb_rand" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/test"
@@ -38,23 +39,23 @@
         android:layout_height="wrap_content"
         android:text="@string/bt_test" />
 
-    <LinearLayout
+    <RadioGroup
+        android:id="@+id/radioTest"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <CheckBox
-            android:id="@+id/testAll"
+        <RadioButton
+            android:id="@+id/rb_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cb_test_all" />
+            android:text="@string/rb_all" />
 
-        <CheckBox
-            android:id="@+id/testRed"
+        <RadioButton
+            android:id="@+id/rb_red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cb_test_red" />
-
-    </LinearLayout>
+            android:text="@string/rb_red" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/table"

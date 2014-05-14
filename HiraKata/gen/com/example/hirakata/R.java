@@ -27,30 +27,32 @@ public final class R {
         public static final int kata_2=0x7f020003;
     }
     public static final class id {
-        public static final int All=0x7f080016;
-        public static final int Hiragana=0x7f080012;
-        public static final int Katakana=0x7f080014;
-        public static final int action_settings=0x7f080017;
-        public static final int backButton=0x7f08000d;
-        public static final int deleteButton=0x7f08000f;
-        public static final int drawButton=0x7f08000e;
-        public static final int drawing=0x7f08000b;
-        public static final int iconSmall=0x7f080008;
-        public static final int lageText=0x7f080009;
-        public static final int linearLayoutBottom=0x7f08000c;
-        public static final int linearLayoutTop=0x7f080007;
-        public static final int nextButton=0x7f080010;
+        public static final int All=0x7f080018;
+        public static final int Hiragana=0x7f080014;
+        public static final int Katakana=0x7f080016;
+        public static final int action_settings=0x7f080019;
+        public static final int backButton=0x7f08000f;
+        public static final int deleteButton=0x7f080011;
+        public static final int drawButton=0x7f080010;
+        public static final int drawing=0x7f08000d;
+        public static final int iconSmall=0x7f08000a;
+        public static final int lageText=0x7f08000b;
+        public static final int linearLayoutBottom=0x7f08000e;
+        public static final int linearLayoutTop=0x7f080009;
+        public static final int nextButton=0x7f080012;
         public static final int practice=0x7f080000;
-        public static final int rand=0x7f080002;
-        public static final int sort=0x7f080001;
-        public static final int soundButton=0x7f08000a;
-        public static final int table=0x7f080006;
-        public static final int tableRow1=0x7f080011;
-        public static final int tableRow2=0x7f080013;
-        public static final int tableRow3=0x7f080015;
-        public static final int test=0x7f080003;
-        public static final int testAll=0x7f080004;
-        public static final int testRed=0x7f080005;
+        public static final int radioPractice=0x7f080001;
+        public static final int radioTest=0x7f080005;
+        public static final int rb_all=0x7f080006;
+        public static final int rb_order=0x7f080002;
+        public static final int rb_rand=0x7f080003;
+        public static final int rb_red=0x7f080007;
+        public static final int soundButton=0x7f08000c;
+        public static final int table=0x7f080008;
+        public static final int tableRow1=0x7f080013;
+        public static final int tableRow2=0x7f080015;
+        public static final int tableRow3=0x7f080017;
+        public static final int test=0x7f080004;
     }
     public static final class layout {
         public static final int activity_first_page=0x7f030000;
@@ -80,6 +82,10 @@ public final class R {
         public static final int lv_name_largeText=0x7f050007;
         public static final int next_toast=0x7f050011;
         public static final int prev_toast=0x7f050012;
+        public static final int rb_all=0x7f050015;
+        public static final int rb_order=0x7f050013;
+        public static final int rb_rand=0x7f050014;
+        public static final int rb_red=0x7f050016;
         public static final int title_activity_first_page=0x7f050008;
         public static final int title_activity_practice_page=0x7f050002;
     }

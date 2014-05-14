@@ -55,7 +55,7 @@ public class StartPage extends Activity implements OnClickListener {
 					.show();
 		} else if (view.getId() == R.id.Katakana) {
 			hk_mode.setMode("kata_");
-			Intent intent = new Intent(StartPage.this, PracticePage.class);
+			Intent intent = new Intent(StartPage.this, FirstPage.class);
 			StartPage.this.startActivity(intent);
 		}
 	}
@@ -66,5 +66,4 @@ public class StartPage extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.start_page, menu);
 		return true;
 	}
-
 }
