@@ -44,7 +44,6 @@ public class FirstPage extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View view) {
-
 		if (view.getId() == R.id.practice) {
 			if (this.rb_order.isChecked()) {
 				this.hk_att.setOrder(true);
@@ -73,5 +72,4 @@ public class FirstPage extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.first_page, menu);
 		return true;
 	}
-
 }

@@ -4,7 +4,7 @@ import android.app.Application;
 
 public class HiraKataApplication extends Application {
 
-	String mode = "fail";		//application mode
+	String mode = "hira_";		//application mode
 	int numberOfDrawables = 3;  //3 for testing should be 100
 	int indexOfUsedKana = 0;    //index of the actual kana
 	boolean order = true;		//show kana in order		

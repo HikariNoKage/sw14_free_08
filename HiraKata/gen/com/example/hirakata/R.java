@@ -22,9 +22,52 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
-        public static final int kata_0=0x7f020001;
-        public static final int kata_1=0x7f020002;
-        public static final int kata_2=0x7f020003;
+        public static final int kana_1=0x7f020001;
+        public static final int kana_10=0x7f020002;
+        public static final int kana_11=0x7f020003;
+        public static final int kana_14=0x7f020004;
+        public static final int kana_16=0x7f020005;
+        public static final int kana_17=0x7f020006;
+        public static final int kana_18=0x7f020007;
+        public static final int kana_19=0x7f020008;
+        public static final int kana_2=0x7f020009;
+        public static final int kana_20=0x7f02000a;
+        public static final int kana_21=0x7f02000b;
+        public static final int kana_22=0x7f02000c;
+        public static final int kana_25=0x7f02000d;
+        public static final int kana_26=0x7f02000e;
+        public static final int kana_27=0x7f02000f;
+        public static final int kana_28=0x7f020010;
+        public static final int kana_29=0x7f020011;
+        public static final int kana_3=0x7f020012;
+        public static final int kana_30=0x7f020013;
+        public static final int kana_31=0x7f020014;
+        public static final int kana_32=0x7f020015;
+        public static final int kana_33=0x7f020016;
+        public static final int kana_36=0x7f020017;
+        public static final int kana_38=0x7f020018;
+        public static final int kana_39=0x7f020019;
+        public static final int kana_4=0x7f02001a;
+        public static final int kana_40=0x7f02001b;
+        public static final int kana_41=0x7f02001c;
+        public static final int kana_42=0x7f02001d;
+        public static final int kana_43=0x7f02001e;
+        public static final int kana_44=0x7f02001f;
+        public static final int kana_46=0x7f020020;
+        public static final int kana_47=0x7f020021;
+        public static final int kana_48=0x7f020022;
+        public static final int kana_49=0x7f020023;
+        public static final int kana_5=0x7f020024;
+        public static final int kana_50=0x7f020025;
+        public static final int kana_51=0x7f020026;
+        public static final int kana_52=0x7f020027;
+        public static final int kana_53=0x7f020028;
+        public static final int kana_54=0x7f020029;
+        public static final int kana_55=0x7f02002a;
+        public static final int kana_6=0x7f02002b;
+        public static final int kana_7=0x7f02002c;
+        public static final int kana_8=0x7f02002d;
+        public static final int kana_9=0x7f02002e;
     }
     public static final class id {
         public static final int All=0x7f080018;

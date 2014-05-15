@@ -41,6 +41,13 @@ public class PracticePageTest extends ActivityInstrumentationTestCase2<PracticeP
 		//To do: check if pixel are deleted
 	}
 	
+	public void testLastKanaNext() throws Exception
+	{
+		for(int i = 0; i < 56; i++)
+		{
+			this.pp_test.clickOnImageButton(4);
+		}
+	}
 	
 	
 	@Override

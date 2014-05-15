@@ -51,12 +51,11 @@ public class StartPage extends Activity implements OnClickListener {
 			Toast.makeText(this, "NO test Kana!!!!!", Toast.LENGTH_LONG).show();
 		} else if (view.getId() == R.id.Hiragana) {
 			hk_mode.setMode("hira_");
-			Toast.makeText(this, "NO test Hiragana!!!!!", Toast.LENGTH_LONG)
-					.show();
-		} else if (view.getId() == R.id.Katakana) {
-			hk_mode.setMode("kata_");
 			Intent intent = new Intent(StartPage.this, FirstPage.class);
 			StartPage.this.startActivity(intent);
+		} else if (view.getId() == R.id.Katakana) {
+			hk_mode.setMode("kata_");
+			Toast.makeText(this, "NO test Katakana!!!!!", Toast.LENGTH_LONG).show();
 		}
 	}
 
