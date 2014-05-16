@@ -1,6 +1,7 @@
 package gui;
 
-import java.util.Random;
+
+import java.util.Collections;
 import java.util.Vector;
 import bl.DrawingPanel;
 import bl.HiraKataApplication;
@@ -53,9 +54,9 @@ public class PracticePage extends Activity implements OnClickListener {
 		this.dpanel = (DrawingPanel) findViewById(R.id.drawing);
 		application = ((HiraKataApplication) this.getApplicationContext());
 
-		allPicRes = application.getAllDrawableResources();
-		if (!application.isOrder()) {
-			allPicRes = application.antiSort();
+		allPicRes = application.getAllPicRes();
+		if (application.isOrder() == false) {
+			Collections.shuffle(allPicRes);
 		}
 	}
 

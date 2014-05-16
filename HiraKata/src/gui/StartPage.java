@@ -48,13 +48,20 @@ public class StartPage extends Activity implements OnClickListener {
 
 		if (view.getId() == R.id.All) {
 			hk_mode.setMode("all_");
+			hk_mode.getAllDrawableResources();
+			//Intent intent = new Intent(StartPage.this, FirstPage.class);
+			//StartPage.this.startActivity(intent);
 			Toast.makeText(this, "NO test Kana!!!!!", Toast.LENGTH_LONG).show();
 		} else if (view.getId() == R.id.Hiragana) {
 			hk_mode.setMode("hira_");
+			hk_mode.getAllDrawableResources();
 			Intent intent = new Intent(StartPage.this, FirstPage.class);
 			StartPage.this.startActivity(intent);
 		} else if (view.getId() == R.id.Katakana) {
 			hk_mode.setMode("kata_");
+			hk_mode.getAllDrawableResources();
+			//Intent intent = new Intent(StartPage.this, FirstPage.class);
+			//StartPage.this.startActivity(intent);
 			Toast.makeText(this, "NO test Katakana!!!!!", Toast.LENGTH_LONG).show();
 		}
 	}
