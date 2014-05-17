@@ -1,9 +1,10 @@
 package com.example.hirakata.test;
 
+
 import com.robotium.solo.Solo;
 
-import gui.FirstPage;
 import android.test.ActivityInstrumentationTestCase2;
+import app.FirstPage;
 
 public class FirstPageTest extends ActivityInstrumentationTestCase2<FirstPage> {
 

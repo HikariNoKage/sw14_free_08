@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".PracticePage" >
+    tools:context="app.PracticePage" >
 
     <LinearLayout
         android:id="@+id/linearLayoutTop"
@@ -23,6 +23,7 @@
             android:id="@+id/lageText"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:gravity="center"
             android:text="@string/lv_name_largeText"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -35,7 +36,7 @@
 
     </LinearLayout>
 
-    <bl.DrawingPanel
+    <app.DrawingPanel
         android:id="@+id/drawing"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
