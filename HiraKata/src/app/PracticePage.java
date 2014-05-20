@@ -1,6 +1,5 @@
 package app;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Vector;
 import com.example.android.app.R;
@@ -29,6 +28,7 @@ public class PracticePage extends Activity implements OnClickListener {
 	boolean start = true;
 	private Vector<Integer> allPicRes;
 	private Map<Integer, String> names;
+	private Map<Integer, Integer> smallPics;
 
 	/*
 	 * (non-Javadoc)
@@ -57,17 +57,25 @@ public class PracticePage extends Activity implements OnClickListener {
 		this.dpanel = (DrawingPanel) findViewById(R.id.drawing);
 
 		application = ((HiraKataApplication) this.getApplicationContext());
-		//this.allPicRes.clear();
-		
-		if (application.isOrder()) {
-			Log.w("order", "order: "+application.isOrder());
-			this.allPicRes = application.getAllPicRes();
-		} else {
-			Log.w("order", "order: "+application.isOrder());
-			this.allPicRes = application.getAllPicResRand();
-		}
+		allPicRes = new Vector<Integer>();
 
+		if (application.isOrder()) {
+			this.allPicRes.clear();
+			this.allPicRes = application.getAllPicRes();
+			/*
+			 * Log.w("order", "order true: " + application.isOrder() + " size:"
+			 * + allPicRes.size());
+			 */
+		} else {
+			this.allPicRes.clear();
+			this.allPicRes = application.getAllPicResRand();
+			/*
+			 * Log.w("order", "order false: " + application.isOrder() + " size:"
+			 * + allPicRes.size());
+			 */
+		}
 		names = application.getNames();
+		smallPics = application.getPicResSmall();
 	}
 
 	@Override
@@ -75,23 +83,16 @@ public class PracticePage extends Activity implements OnClickListener {
 
 		int actualKana = application.getIndexOfUsedKana();
 
-/*		if (application.isOrder()) {
-			this.allPicRes = application.getAllPicRes();
-		} else {
-			this.allPicRes = application.getAllPicResRand();
-		}*/
-
 		if (start) {
-			names = application.getNames();
 			showKana(this.allPicRes.get(actualKana));
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
+			this.iconSmall.setImageResource(smallPics.get(this.allPicRes.get(actualKana)));
 			start = false;
 		}
 
 		if (view.getId() == R.id.drawButton) {
 			drawKana();
 		} else if (view.getId() == R.id.deleteButton) {
-			// this.largeText.setText(names.get(actualKana));
 			showKana(this.allPicRes.get(actualKana));
 		} else if (view.getId() == R.id.nextButton) {
 			nextKana(actualKana);
@@ -108,9 +109,11 @@ public class PracticePage extends Activity implements OnClickListener {
 	}
 
 	public void previousKana(int actualKana) {
-		actualKana--;
-		if (actualKana >= 0) {
+		Log.w("prev", "prev: " + actualKana);
+		if (actualKana > 0) {
+			actualKana--;
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
+			this.iconSmall.setImageResource(smallPics.get(this.allPicRes.get(actualKana)));
 			showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
 			this.dpanel.invalidate();
@@ -121,9 +124,11 @@ public class PracticePage extends Activity implements OnClickListener {
 	}
 
 	public void nextKana(int actualKana) {
-		actualKana++;
-		if (this.allPicRes.size() > actualKana) {
+		Log.w("next", "next: " + actualKana);
+		if (this.allPicRes.size() > (actualKana + 1)) {
+			actualKana++;
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
+			this.iconSmall.setImageResource(smallPics.get(this.allPicRes.get(actualKana)));
 			showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
 			this.dpanel.invalidate();
@@ -141,9 +146,7 @@ public class PracticePage extends Activity implements OnClickListener {
 
 	@Override
 	public void onBackPressed() {
-		// this.allPicRes.clear();
-		// this.names.clear();
-		// application.setIndexOfUsedKana(1);
+		application.setIndexOfUsedKana(0);
 		this.finish();
 		return;
 	}

@@ -7,23 +7,27 @@ import java.util.Vector;
 import com.example.android.app.R;
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.util.Log;
 
 public class HiraKataApplication extends Application {
 
-	String mode = "hira_"; // application mode
-	int numberOfDrawables = 0; // 3 for testing should be 100
-	int indexOfUsedKana = 0; // index of the actual kana
-	boolean order = true; // show kana in order
+	String mode;
+	int numberOfDrawables;
+	int indexOfUsedKana = 0;
+	boolean order;
 	Vector<Integer> allPicRes;
+	Vector<Integer> allPicResTable;
 	Map<Integer, String> names;
+	Map<Integer, Integer> picResSmall;
 
 	public Vector<Integer> getAllPicRes() {
 		return allPicRes;
 	}
-	
+
 	public Vector<Integer> getAllPicResRand() {
-		Vector<Integer> rand = allPicRes;
-		Collections.shuffle(allPicRes);
+		@SuppressWarnings("unchecked")
+		Vector<Integer> rand = (Vector<Integer>) allPicRes.clone();
+		Collections.shuffle(rand);
 		return rand;
 	}
 
@@ -39,45 +43,81 @@ public class HiraKataApplication extends Application {
 		this.allPicRes = allPicRes;
 	}
 
+	public void loadSmallPicsForTable() {
+		int smallResource = 0;
+		allPicResTable = new Vector<Integer>();
+		try {
+			for (int j = 1; j <= 110; j++)
+				smallResource = R.drawable.class.getField("kana_small_" + j)
+						.getInt(null);
+			allPicResTable.add(smallResource);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@SuppressLint("UseSparseArrays")
 	public boolean getAllDrawableResources() {
 		allPicRes = new Vector<Integer>();
 		names = new HashMap<Integer, String>();
+		picResSmall = new HashMap<Integer, Integer>();
 
+		allPicRes.clear();
+		names.clear();
+		picResSmall.clear();
+		
 		int resource = 0;
+		int smallResource = 0;
 		int id = 0;
-		int[] noKana = { 12, 13, 15, 23, 24, 34, 35, 37, 45 };
-		String mode = this.mode;
+		int[] noKana = { 37, 39, 47, 48, 49, 52, 53, 54, 55, 92, 94, 102, 103,
+				104, 107, 108, 109, 110 };
 
-		if (mode.equals("all_")) {
+		if (this.mode.equals("all_")) {
 			resource = 1;
 			numberOfDrawables = 110;
-		} else if (mode.equals("hira_")) {
+		} else if (this.mode.equals("hira_")) {
 			resource = 1;
 			numberOfDrawables = 55;
-		} else if (mode.equals("kata_")) {
+		} else if (this.mode.equals("kata_")) {
 			resource = 56;
-			for (int i = 0; i < noKana.length; i++) {
-				noKana[i] = noKana[i] + 56;
-			}
 			numberOfDrawables = 110;
 		}
+		Log.w("loop", "mode: " + this.mode);
 		try {
 			for (int i = resource; i <= numberOfDrawables; i++) {
+				Log.w("loop", "i: " + i + "nD: " + numberOfDrawables);
 				if (!(contains(noKana, i))) {
 					resource = R.drawable.class.getField("kana_" + i).getInt(
 							null);
+					smallResource = R.drawable.class
+							.getField("kana_small_" + i).getInt(null);
 					id = getResources().getIdentifier("kana_" + i, "string",
 							getPackageName());
+					picResSmall.put(resource, smallResource);
 					allPicRes.add(resource);
-					names.put(resource,
-							(String) getResources().getText(id));
+					names.put(resource, (String) getResources().getText(id));
 				}
 			}
 		} catch (Exception e) {
 			return false;
 		}
 		return true;
+	}
+
+	public Vector<Integer> getAllPicResTable() {
+		return allPicResTable;
+	}
+
+	public void setAllPicResTable(Vector<Integer> allPicResTable) {
+		this.allPicResTable = allPicResTable;
+	}
+
+	public Map<Integer, Integer> getPicResSmall() {
+		return picResSmall;
+	}
+
+	public void setPicResSmall(Map<Integer, Integer> picResSmall) {
+		this.picResSmall = picResSmall;
 	}
 
 	public boolean contains(final int[] array, final int key) {
