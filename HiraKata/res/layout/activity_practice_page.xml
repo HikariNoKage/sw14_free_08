@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".PracticePage" >
+    tools:context="app.PracticePage" >
 
     <LinearLayout
         android:id="@+id/linearLayoutTop"
@@ -16,33 +16,36 @@
             android:id="@+id/iconSmall"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:contentDescription="@string/description"
             android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/lageText"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="Large Text"
+            android:gravity="center"
+            android:text="@string/lv_name_largeText"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ImageButton
             android:id="@+id/soundButton"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:contentDescription="@string/description"
             android:src="@android:drawable/ic_menu_slideshow" />
 
     </LinearLayout>
 
-    <bl.DrawingPanel
+    <app.DrawingPanel
         android:id="@+id/drawing"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="3dp"
         android:layout_weight="1"
-        android:background="#AAA" />
+        android:background="#FFF" />
 
     <LinearLayout
         android:id="@+id/linearLayoutBottom"
@@ -53,24 +56,28 @@
 
         <ImageButton
             android:id="@+id/backButton"
+            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@android:drawable/ic_media_previous" />
 
         <ImageButton
             android:id="@+id/drawButton"
+            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@android:drawable/ic_menu_edit" />
 
         <ImageButton
             android:id="@+id/deleteButton"
+            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@android:drawable/ic_menu_delete" />
 
         <ImageButton
             android:id="@+id/nextButton"
+            android:contentDescription="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@android:drawable/ic_media_play" />

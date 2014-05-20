@@ -1,7 +1,8 @@
 package com.example.hirakata.test;
 
-import gui.StartPage;
 import android.test.ActivityInstrumentationTestCase2;
+import app.StartPage;
+
 import com.robotium.solo.Solo;
 
 public class GUI_Test extends ActivityInstrumentationTestCase2<StartPage> {

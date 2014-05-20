@@ -1,0 +1,64 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="app.FirstPage" >
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/practice"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/bt_practice" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/practice_random"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/practice_random" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal" >
+
+               <Button
+            android:id="@+id/test"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/bt_test" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/table"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/bt_table" />
+    </TableRow>
+
+</TableLayout>
