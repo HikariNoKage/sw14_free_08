@@ -57,12 +57,17 @@ public class PracticePage extends Activity implements OnClickListener {
 		this.dpanel = (DrawingPanel) findViewById(R.id.drawing);
 
 		application = ((HiraKataApplication) this.getApplicationContext());
-		allPicRes = application.getAllPicRes();
-		names = application.getNames();
-
-		if (application.isOrder() == false) {
-			Collections.shuffle(allPicRes);
+		//this.allPicRes.clear();
+		
+		if (application.isOrder()) {
+			Log.w("order", "order: "+application.isOrder());
+			this.allPicRes = application.getAllPicRes();
+		} else {
+			Log.w("order", "order: "+application.isOrder());
+			this.allPicRes = application.getAllPicResRand();
 		}
+
+		names = application.getNames();
 	}
 
 	@Override
@@ -70,9 +75,16 @@ public class PracticePage extends Activity implements OnClickListener {
 
 		int actualKana = application.getIndexOfUsedKana();
 
+/*		if (application.isOrder()) {
+			this.allPicRes = application.getAllPicRes();
+		} else {
+			this.allPicRes = application.getAllPicResRand();
+		}*/
+
 		if (start) {
+			names = application.getNames();
 			showKana(this.allPicRes.get(actualKana));
-			this.largeText.setText(names.get(actualKana));
+			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
 			start = false;
 		}
 
@@ -98,7 +110,7 @@ public class PracticePage extends Activity implements OnClickListener {
 	public void previousKana(int actualKana) {
 		actualKana--;
 		if (actualKana >= 0) {
-			this.largeText.setText(names.get(actualKana));
+			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
 			showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
 			this.dpanel.invalidate();
@@ -111,7 +123,7 @@ public class PracticePage extends Activity implements OnClickListener {
 	public void nextKana(int actualKana) {
 		actualKana++;
 		if (this.allPicRes.size() > actualKana) {
-			this.largeText.setText(names.get(actualKana));
+			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
 			showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
 			this.dpanel.invalidate();
@@ -125,6 +137,15 @@ public class PracticePage extends Activity implements OnClickListener {
 		Bitmap drawable = BitmapFactory.decodeResource(getResources(), id);
 		this.dpanel.newDrawing(drawable);
 		this.dpanel.invalidate();
+	}
+
+	@Override
+	public void onBackPressed() {
+		// this.allPicRes.clear();
+		// this.names.clear();
+		// application.setIndexOfUsedKana(1);
+		this.finish();
+		return;
 	}
 
 	@Override

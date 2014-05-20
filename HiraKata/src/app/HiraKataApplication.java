@@ -1,5 +1,6 @@
 package app;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -19,6 +20,12 @@ public class HiraKataApplication extends Application {
 	public Vector<Integer> getAllPicRes() {
 		return allPicRes;
 	}
+	
+	public Vector<Integer> getAllPicResRand() {
+		Vector<Integer> rand = allPicRes;
+		Collections.shuffle(allPicRes);
+		return rand;
+	}
 
 	public Map<Integer, String> getNames() {
 		return names;
@@ -36,6 +43,7 @@ public class HiraKataApplication extends Application {
 	public boolean getAllDrawableResources() {
 		allPicRes = new Vector<Integer>();
 		names = new HashMap<Integer, String>();
+
 		int resource = 0;
 		int id = 0;
 		int[] noKana = { 12, 13, 15, 23, 24, 34, 35, 37, 45 };
@@ -62,7 +70,7 @@ public class HiraKataApplication extends Application {
 					id = getResources().getIdentifier("kana_" + i, "string",
 							getPackageName());
 					allPicRes.add(resource);
-					names.put(allPicRes.indexOf(resource),
+					names.put(resource,
 							(String) getResources().getText(id));
 				}
 			}
