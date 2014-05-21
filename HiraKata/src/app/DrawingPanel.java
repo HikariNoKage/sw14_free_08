@@ -29,8 +29,8 @@ public class DrawingPanel extends View {
 	private void setupDrawing() {
 		this.dPath = new Path();
 		this.dPaint = new Paint();
-
-		this.dPaint.setColor(this.pColor);
+		this.dPaint.setColor(Color.BLUE);
+		this.dPaint.setAlpha(0x80);
 		this.dPaint.setAntiAlias(true);
 		this.dPaint.setStrokeWidth(15);
 		this.dPaint.setStyle(Paint.Style.STROKE);

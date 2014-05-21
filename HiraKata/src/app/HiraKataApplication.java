@@ -8,6 +8,7 @@ import com.example.android.app.R;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 public class HiraKataApplication extends Application {
 
@@ -19,6 +20,7 @@ public class HiraKataApplication extends Application {
 	Vector<Integer> allPicResTable;
 	Map<Integer, String> names;
 	Map<Integer, Integer> picResSmall;
+	Map<Integer, Integer> sounds;
 
 	public Vector<Integer> getAllPicRes() {
 		return allPicRes;
@@ -56,6 +58,65 @@ public class HiraKataApplication extends Application {
 		}
 	}
 
+	public Map<Integer, Integer> getSounds() {
+		return sounds;
+	}
+
+	public void setSounds(Map<Integer, Integer> sounds) {
+		this.sounds = sounds;
+	}
+
+	public void initResources() {
+		try {
+			getAllDrawableResources();
+			fillSounds();
+		} catch (Exception e) {
+			Toast.makeText(this, this.getString(R.string.prev_toast),
+					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	public int[] loadSounds() {
+		int[] noKana = { 37, 39, 47, 48, 49 };
+		int[] sounds = new int[46];
+
+		int soundId = 0;
+		try {
+			int j = 0;
+			for (int i = 1; i <= 51; i++) {
+				if (!(contains(noKana, i))) {
+					soundId = R.raw.class.getField("kanasound_" + i).getInt(
+							null);
+					sounds[j] = soundId;
+					// Log.w("sounds", "sounds: "+sounds[j]+" j "+j);
+					j++;
+				}
+			}
+			return sounds;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@SuppressLint("UseSparseArrays")
+	public void fillSounds() {
+		sounds = new HashMap<Integer, Integer>();
+		int[] sound = loadSounds();
+		int k = 0;
+		if (allPicRes.size() > 0) {
+			for (int j = 0; j < allPicRes.size(); j++) {
+				Log.w("int", "j: " + j);
+				if (k == 47)
+					k = 0;
+				sounds.put(allPicRes.elementAt(j), sound[k]);
+				// Log.w("out", "sounds: " +
+				// sounds.get(allPicRes.elementAt(j)));
+				k++;
+			}
+		}
+	}
+
 	@SuppressLint("UseSparseArrays")
 	public boolean getAllDrawableResources() {
 		allPicRes = new Vector<Integer>();
@@ -65,7 +126,7 @@ public class HiraKataApplication extends Application {
 		allPicRes.clear();
 		names.clear();
 		picResSmall.clear();
-		
+
 		int resource = 0;
 		int smallResource = 0;
 		int id = 0;
@@ -82,10 +143,10 @@ public class HiraKataApplication extends Application {
 			resource = 56;
 			numberOfDrawables = 110;
 		}
-		Log.w("loop", "mode: " + this.mode);
+		// Log.w("loop", "mode: " + this.mode);
 		try {
 			for (int i = resource; i <= numberOfDrawables; i++) {
-				Log.w("loop", "i: " + i + "nD: " + numberOfDrawables);
+				// Log.w("loop", "i: " + i + "nD: " + numberOfDrawables);
 				if (!(contains(noKana, i))) {
 					resource = R.drawable.class.getField("kana_" + i).getInt(
 							null);

@@ -50,7 +50,8 @@ public class StartPage extends Activity implements OnClickListener {
 		} else if (view.getId() == R.id.Katakana) {
 			hk_mode.setMode("kata_");
 		}
-		hk_mode.getAllDrawableResources();
+		hk_mode.initResources();
+		
 		Intent intent = new Intent(StartPage.this, FirstPage.class);
 		StartPage.this.startActivity(intent);
 	}

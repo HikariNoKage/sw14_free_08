@@ -3,6 +3,10 @@ package app;
 import java.util.Map;
 import java.util.Vector;
 import com.example.android.app.R;
+
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -29,6 +33,8 @@ public class PracticePage extends Activity implements OnClickListener {
 	private Vector<Integer> allPicRes;
 	private Map<Integer, String> names;
 	private Map<Integer, Integer> smallPics;
+	private Map<Integer, Integer> sounds;
+	private MediaPlayer play;
 
 	/*
 	 * (non-Javadoc)
@@ -76,6 +82,8 @@ public class PracticePage extends Activity implements OnClickListener {
 		}
 		names = application.getNames();
 		smallPics = application.getPicResSmall();
+		sounds = application.getSounds();
+		// Log.w("Sounds", "sounds: "+ sounds.size());
 	}
 
 	@Override
@@ -86,7 +94,8 @@ public class PracticePage extends Activity implements OnClickListener {
 		if (start) {
 			showKana(this.allPicRes.get(actualKana));
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
-			this.iconSmall.setImageResource(smallPics.get(this.allPicRes.get(actualKana)));
+			this.iconSmall.setImageResource(smallPics.get(this.allPicRes
+					.get(actualKana)));
 			start = false;
 		}
 
@@ -98,12 +107,42 @@ public class PracticePage extends Activity implements OnClickListener {
 			nextKana(actualKana);
 		} else if (view.getId() == R.id.backButton) {
 			previousKana(actualKana);
+		} else if (view.getId() == R.id.soundButton) {
+			play = MediaPlayer.create(getApplicationContext(),
+					this.sounds.get(this.allPicRes.get(actualKana)));
+
+			AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
+			// int volume_level= am.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+			switch (am.getRingerMode()) {
+			case AudioManager.RINGER_MODE_SILENT:
+				play.setVolume(0, 0);
+				break;
+			case AudioManager.RINGER_MODE_VIBRATE:
+				play.setVolume(0, 0);
+				break;
+			case AudioManager.RINGER_MODE_NORMAL:
+				play.setVolume(1, 1);
+				break;
+			}
+
+			this.soundButton.setEnabled(false);
+
+			play.setOnCompletionListener(new OnCompletionListener() {
+
+				@Override
+				public void onCompletion(MediaPlayer mpalmost) {
+					soundButton.setEnabled(true);
+					mpalmost.release();
+				}
+			});
+			play.start();
 		}
 	};
 
 	public void drawKana() {
 		this.dpanel.setDrawAble(true);
-		this.dpanel.setColor("BLACK");
+		// this.dpanel.setColor("BLACK");
 		this.dpanel.setStrokeWidth(45);
 		this.dpanel.invalidate();
 	}
@@ -113,7 +152,8 @@ public class PracticePage extends Activity implements OnClickListener {
 		if (actualKana > 0) {
 			actualKana--;
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
-			this.iconSmall.setImageResource(smallPics.get(this.allPicRes.get(actualKana)));
+			this.iconSmall.setImageResource(smallPics.get(this.allPicRes
+					.get(actualKana)));
 			showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
 			this.dpanel.invalidate();
@@ -128,7 +168,8 @@ public class PracticePage extends Activity implements OnClickListener {
 		if (this.allPicRes.size() > (actualKana + 1)) {
 			actualKana++;
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
-			this.iconSmall.setImageResource(smallPics.get(this.allPicRes.get(actualKana)));
+			this.iconSmall.setImageResource(smallPics.get(this.allPicRes
+					.get(actualKana)));
 			showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
 			this.dpanel.invalidate();
