@@ -117,5 +117,6 @@
     <string name="kana_101">Katakana:\n WA</string>
     <string name="kana_105">Katakana:\n WO</string>
     <string name="kana_106">Katakana:\n N</string>
+    <string name="title_activity_table_page">TablePage</string>
 
 </resources>

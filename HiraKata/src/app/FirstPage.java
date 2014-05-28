@@ -56,8 +56,9 @@ public class FirstPage extends Activity implements OnClickListener {
 			// call test page!
 			Toast.makeText(this, "TEST!!!!!", Toast.LENGTH_LONG).show();
 		} else if (view.getId() == R.id.table) {
-			// call table page!
-			Toast.makeText(this, "Table!!!!!", Toast.LENGTH_LONG).show();
+			Intent intent = new Intent(FirstPage.this, TablePage.class);
+			FirstPage.this.startActivity(intent);
+			// Toast.makeText(this, "Table!!!!!", Toast.LENGTH_LONG).show();
 		}
 	}
 

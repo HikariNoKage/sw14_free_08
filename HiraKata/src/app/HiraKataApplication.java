@@ -70,6 +70,7 @@ public class HiraKataApplication extends Application {
 		try {
 			getAllDrawableResources();
 			fillSounds();
+			loadSmallPicsForTable();
 		} catch (Exception e) {
 			Toast.makeText(this, this.getString(R.string.prev_toast),
 					Toast.LENGTH_LONG).show();

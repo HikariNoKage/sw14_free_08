@@ -31,6 +31,10 @@
             android:name="app.FirstPage"
             android:label="@string/title_activity_first_page" >
         </activity>
+        <activity
+            android:name="app.TablePage"
+            android:label="@string/title_activity_table_page" >
+        </activity>
     </application>
 
 </manifest>
