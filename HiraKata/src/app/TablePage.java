@@ -33,7 +33,7 @@ public class TablePage extends Activity implements OnClickListener {
 		attri = ((HiraKataApplication) this.getApplicationContext());
 		res = attri.getAllPicResTable();
 		
-		Log.w("Test", res.size()+"");
+		
 		for(int i = 0; i< res.size(); i++)
 		{
 			Bitmap icon = BitmapFactory.decodeResource(this.getResources(),res.elementAt(i));
@@ -42,8 +42,10 @@ public class TablePage extends Activity implements OnClickListener {
 		
 		grid = (GridView) findViewById(R.id.gridView1);
 		gridAdi = new GridViewAdapter(this, R.layout.activity_table_page, bit);
+		//gridAdi.notifyDataSetChanged();
 		grid.setAdapter(gridAdi);
-		
+		gridAdi.notifyDataSetChanged();
+		grid.invalidateViews();
 	}
 
 	@Override

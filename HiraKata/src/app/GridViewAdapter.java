@@ -8,6 +8,7 @@ import com.example.android.app.R;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,20 +25,29 @@ public class GridViewAdapter extends ArrayAdapter<Bitmap> {
 		this.con = context;
 		this.resourceId = resource;
 		this.pics = (ArrayList<Bitmap>) objects;
+		Log.w("Pics", "pics: "+this.pics.size());
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		Log.w("View", "it s a view "+convertView);
 		View row = convertView;
 
 		if (row == null) {
+			Log.w("View", "it s a null "+convertView);
 			LayoutInflater inflat = ((Activity) con).getLayoutInflater();
 			row = inflat.inflate(this.resourceId, parent, false);
-			row.setTag((ImageView) row.findViewById(R.id.iconSmall));
-			return row;
-		} else {
-			return (View) row.getTag();
+			row.setTag((ImageView) row.findViewById(R.drawable.kana_small_1));
+			Log.w("row", "row null "+row);
+			//return row;
 		}
+//		else {
+//			Log.w("View", "it s a"+convertView);
+//			//this.pics.get(position);
+//			Log.w("row", "row "+row);
+//			return row;
+//		}
+		return row;
 	}
 
 }

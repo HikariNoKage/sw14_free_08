@@ -107,7 +107,7 @@ public class HiraKataApplication extends Application {
 		int k = 0;
 		if (allPicRes.size() > 0) {
 			for (int j = 0; j < allPicRes.size(); j++) {
-				Log.w("int", "j: " + j);
+				//Log.w("int", "j: " + j);
 				if (k == 47)
 					k = 0;
 				sounds.put(allPicRes.elementAt(j), sound[k]);
