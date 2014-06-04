@@ -35,14 +35,12 @@ public class StartPage extends Activity implements OnClickListener {
 		this.bt_all.setOnClickListener(this);
 		this.bt_hira.setOnClickListener(this);
 		this.bt_kata.setOnClickListener(this);
-
+		hk_mode = ((HiraKataApplication) this.getApplicationContext());
 	}
 
 	@Override
 	public void onClick(View view) {
 
-		hk_mode = ((HiraKataApplication) this.getApplicationContext());
-		
 		if (view.getId() == R.id.All) {
 			hk_mode.setMode("all_");
 		} else if (view.getId() == R.id.Hiragana) {

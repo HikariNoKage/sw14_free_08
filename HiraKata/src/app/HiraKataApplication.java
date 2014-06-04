@@ -8,19 +8,18 @@ import com.example.android.app.R;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.util.Log;
-import android.widget.Toast;
 
 public class HiraKataApplication extends Application {
 
-	String mode;
-	int numberOfDrawables;
-	int indexOfUsedKana = 0;
-	boolean order;
-	Vector<Integer> allPicRes;
-	Vector<Integer> allPicResTable;
-	Map<Integer, String> names;
-	Map<Integer, Integer> picResSmall;
-	Map<Integer, Integer> sounds;
+	private String mode;
+	private int numberOfDrawables;
+	private int indexOfUsedKana = 0;
+	private boolean order;
+	private Vector<Integer> allPicRes;
+	private Vector<Integer> allPicResTable;
+	private Map<Integer, String> names;
+	private Map<Integer, Integer> picResSmall;
+	private Map<Integer, Integer> sounds;
 
 	public Vector<Integer> getAllPicRes() {
 		return allPicRes;
@@ -70,10 +69,9 @@ public class HiraKataApplication extends Application {
 		try {
 			getAllDrawableResources();
 			fillSounds();
-			loadSmallPicsForTable();
+			//loadSmallPicsForTable();
 		} catch (Exception e) {
-			Toast.makeText(this, this.getString(R.string.prev_toast),
-					Toast.LENGTH_LONG).show();
+			e.printStackTrace();
 		}
 	}
 
@@ -107,7 +105,7 @@ public class HiraKataApplication extends Application {
 		int k = 0;
 		if (allPicRes.size() > 0) {
 			for (int j = 0; j < allPicRes.size(); j++) {
-				//Log.w("int", "j: " + j);
+				// Log.w("int", "j: " + j);
 				if (k == 47)
 					k = 0;
 				sounds.put(allPicRes.elementAt(j), sound[k]);

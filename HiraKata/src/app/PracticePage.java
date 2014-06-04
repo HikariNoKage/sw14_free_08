@@ -148,7 +148,7 @@ public class PracticePage extends Activity implements OnClickListener {
 	}
 
 	public void previousKana(int actualKana) {
-		Log.w("prev", "prev: " + actualKana);
+		//Log.w("prev", "prev: " + actualKana);
 		if (actualKana > 0) {
 			actualKana--;
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
@@ -164,7 +164,7 @@ public class PracticePage extends Activity implements OnClickListener {
 	}
 
 	public void nextKana(int actualKana) {
-		Log.w("next", "next: " + actualKana);
+		//Log.w("next", "next: " + actualKana);
 		if (this.allPicRes.size() > (actualKana + 1)) {
 			actualKana++;
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));

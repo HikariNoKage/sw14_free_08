@@ -229,13 +229,15 @@ public final class R {
         public static final int All=0x7f090014;
         public static final int Hiragana=0x7f090012;
         public static final int Katakana=0x7f090013;
-        public static final int action_settings=0x7f090016;
+        public static final int action_settings=0x7f090018;
         public static final int backButton=0x7f09000e;
         public static final int deleteButton=0x7f090010;
         public static final int drawButton=0x7f09000f;
         public static final int drawing=0x7f09000c;
         public static final int gridView1=0x7f090015;
         public static final int iconSmall=0x7f090009;
+        public static final int item_image=0x7f090016;
+        public static final int item_text=0x7f090017;
         public static final int lageText=0x7f09000a;
         public static final int linearLayoutBottom=0x7f09000d;
         public static final int linearLayoutTop=0x7f090008;
@@ -255,6 +257,7 @@ public final class R {
         public static final int activity_practice_page=0x7f030001;
         public static final int activity_start_page=0x7f030002;
         public static final int activity_table_page=0x7f030003;
+        public static final int row_grid=0x7f030004;
     }
     public static final class menu {
         public static final int first_page=0x7f080000;
