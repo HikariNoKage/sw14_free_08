@@ -50,6 +50,5 @@ public class GridViewAdapter extends ArrayAdapter<Item> {
 	static class RecordHolder {
 		TextView txtTitle;
 		ImageView imageItem;
-
 	}
 }

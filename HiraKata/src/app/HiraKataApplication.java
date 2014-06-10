@@ -7,7 +7,6 @@ import java.util.Vector;
 import com.example.android.app.R;
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.util.Log;
 
 public class HiraKataApplication extends Application {
 
@@ -16,7 +15,6 @@ public class HiraKataApplication extends Application {
 	private int indexOfUsedKana = 0;
 	private boolean order;
 	private Vector<Integer> allPicRes;
-	private Vector<Integer> allPicResTable;
 	private Map<Integer, String> names;
 	private Map<Integer, Integer> picResSmall;
 	private Map<Integer, Integer> sounds;
@@ -44,19 +42,6 @@ public class HiraKataApplication extends Application {
 		this.allPicRes = allPicRes;
 	}
 
-	public void loadSmallPicsForTable() {
-		int smallResource = 0;
-		allPicResTable = new Vector<Integer>();
-		try {
-			for (int j = 1; j <= 110; j++)
-				smallResource = R.drawable.class.getField("kana_small_" + j)
-						.getInt(null);
-			allPicResTable.add(smallResource);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public Map<Integer, Integer> getSounds() {
 		return sounds;
 	}
@@ -69,7 +54,6 @@ public class HiraKataApplication extends Application {
 		try {
 			getAllDrawableResources();
 			fillSounds();
-			//loadSmallPicsForTable();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -164,14 +148,6 @@ public class HiraKataApplication extends Application {
 		return true;
 	}
 
-	public Vector<Integer> getAllPicResTable() {
-		return allPicResTable;
-	}
-
-	public void setAllPicResTable(Vector<Integer> allPicResTable) {
-		this.allPicResTable = allPicResTable;
-	}
-
 	public Map<Integer, Integer> getPicResSmall() {
 		return picResSmall;
 	}
@@ -180,7 +156,7 @@ public class HiraKataApplication extends Application {
 		this.picResSmall = picResSmall;
 	}
 
-	public boolean contains(final int[] array, final int key) {
+	public static boolean contains(final int[] array, final int key) {
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] == key) {
 				return true;
@@ -220,5 +196,4 @@ public class HiraKataApplication extends Application {
 	public void setIndexOfUsedKana(int indexOfUsedKana) {
 		this.indexOfUsedKana = indexOfUsedKana;
 	}
-
 }
