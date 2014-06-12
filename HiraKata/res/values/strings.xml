@@ -119,5 +119,7 @@
     <string name="kana_106">Katakana:\n N</string>
     <string name="title_activity_table_page">TablePage</string>
     <color name="color">#284610</color>
-
+	<color name="green">#ADCB47</color>
+	<color name="orange">#FD8A2F</color>
+	<color name="red">#CB2C16</color>
 </resources>

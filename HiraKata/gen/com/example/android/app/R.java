@@ -12,6 +12,9 @@ public final class R {
     }
     public static final class color {
         public static final int color=0x7f070000;
+        public static final int green=0x7f070001;
+        public static final int orange=0x7f070002;
+        public static final int red=0x7f070003;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -234,22 +237,25 @@ public final class R {
         public static final int All=0x7f0a0014;
         public static final int Hiragana=0x7f0a0012;
         public static final int Katakana=0x7f0a0013;
-        public static final int action_settings=0x7f0a0018;
+        public static final int action_settings=0x7f0a001b;
         public static final int backButton=0x7f0a000e;
+        public static final int bad=0x7f0a0016;
         public static final int deleteButton=0x7f0a0010;
         public static final int drawButton=0x7f0a000f;
         public static final int drawing=0x7f0a000c;
         public static final int gridView1=0x7f0a0015;
         public static final int iconSmall=0x7f0a0009;
-        public static final int item_image=0x7f0a0016;
-        public static final int item_text=0x7f0a0017;
+        public static final int item_image=0x7f0a0019;
+        public static final int item_text=0x7f0a001a;
         public static final int lageText=0x7f0a000a;
         public static final int linearLayoutBottom=0x7f0a000d;
         public static final int linearLayoutTop=0x7f0a0008;
         public static final int nextButton=0x7f0a0011;
+        public static final int ok=0x7f0a0017;
         public static final int practice=0x7f0a0001;
         public static final int practice_random=0x7f0a0003;
         public static final int soundButton=0x7f0a000b;
+        public static final int supe=0x7f0a0018;
         public static final int table=0x7f0a0007;
         public static final int tableRow1=0x7f0a0000;
         public static final int tableRow2=0x7f0a0002;
@@ -262,7 +268,8 @@ public final class R {
         public static final int activity_practice_page=0x7f030001;
         public static final int activity_start_page=0x7f030002;
         public static final int activity_table_page=0x7f030003;
-        public static final int row_grid=0x7f030004;
+        public static final int activity_test_page=0x7f030004;
+        public static final int row_grid=0x7f030005;
     }
     public static final class menu {
         public static final int first_page=0x7f090000;
