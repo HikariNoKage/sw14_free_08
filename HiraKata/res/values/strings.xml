@@ -4,6 +4,7 @@
     <string name="app_name">HiraKata</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_practice_page">PracticePage</string>
+    <string name="title_activity_test_page">TestPage</string>
     <string name="description">ImageButton</string>
     <string name="bt_name_hira">Hiragana</string>
     <string name="bt_name_kata">Katakana</string>
@@ -119,5 +120,8 @@
     <string name="kana_106">Katakana:\n N</string>
     <string name="title_activity_table_page">TablePage</string>
     <color name="color">#284610</color>
-
+	<color name="red">#FF4444</color>
+	<color name="orange">#FFFF44 </color>
+	<color name="green">#44FF44</color>
+	
 </resources>

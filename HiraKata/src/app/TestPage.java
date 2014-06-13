@@ -10,18 +10,21 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PracticePage extends Activity implements OnClickListener {
+public class TestPage extends Activity implements OnClickListener {
 
-	private ImageButton soundButton, backButton, drawButton, deleteButton,
-			nextButton;
+	private ImageButton soundButton;
+	private Button bad, ok, good, solve;
 
 	private TextView largeText;
 	private ImageView iconSmall;
@@ -34,6 +37,8 @@ public class PracticePage extends Activity implements OnClickListener {
 	private Map<Integer, Integer> sounds;
 	private MediaPlayer play;
 	private AudioManager am;
+	private boolean test_result = false;
+	private int bad_count, ok_count, good_count;
 
 	/*
 	 * (non-Javadoc)
@@ -43,37 +48,56 @@ public class PracticePage extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_practice_page);
+		setContentView(R.layout.activity_test_page);
 
-		this.soundButton = (ImageButton) findViewById(R.id.soundButton);
-		this.backButton = (ImageButton) findViewById(R.id.backButton);
-		this.drawButton = (ImageButton) findViewById(R.id.drawButton);
-		this.deleteButton = (ImageButton) findViewById(R.id.deleteButton);
-		this.nextButton = (ImageButton) findViewById(R.id.nextButton);
+		this.soundButton = (ImageButton) findViewById(R.id.soundButton1);
+		this.bad = (Button) findViewById(R.id.bad);
+		this.ok = (Button) findViewById(R.id.ok);
+		this.good = (Button) findViewById(R.id.good);
+		this.solve = (Button) findViewById(R.id.solve);
+		
+		DisplayMetrics displaymetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+		int with = (int) (displaymetrics.widthPixels / 3);
+
+		this.bad.setWidth(with);
+		this.ok.setWidth(with);
+		this.good.setWidth(with);
 
 		this.soundButton.setOnClickListener(this);
-		this.backButton.setOnClickListener(this);
-		this.drawButton.setOnClickListener(this);
-		this.deleteButton.setOnClickListener(this);
-		this.nextButton.setOnClickListener(this);
+		this.bad.setOnClickListener(this);
+		this.ok.setOnClickListener(this);
+		this.good.setOnClickListener(this);
+		this.solve.setOnClickListener(this);
 
-		this.largeText = (TextView) findViewById(R.id.lageText);
-		this.iconSmall = (ImageView) findViewById(R.id.iconSmall);
-		this.dpanel = (DrawingPanel) findViewById(R.id.drawing);
+		this.largeText = (TextView) findViewById(R.id.lageText1);
+		this.iconSmall = (ImageView) findViewById(R.id.iconSmall1);
+		this.dpanel = (DrawingPanel) findViewById(R.id.drawing1);
 
-		application = ((HiraKataApplication) this.getApplicationContext());
-		allPicRes = new Vector<Integer>();
+		this.application = ((HiraKataApplication) this.getApplicationContext());
+		this.allPicRes = new Vector<Integer>();
 
-		if (application.isOrder()) {
-			this.allPicRes.clear();
-			this.allPicRes = application.getAllPicRes();
-		} else {
-			this.allPicRes.clear();
-			this.allPicRes = application.getAllPicResRand();
-		}
-		names = application.getNames();
-		smallPics = application.getPicResSmall();
-		sounds = application.getSounds();
+		this.allPicRes.clear();
+		this.allPicRes = this.application.getAllPicResRand();
+
+		this.names = this.application.getNames();
+		this.smallPics = this.application.getPicResSmall();
+		this.sounds = this.application.getSounds();
+		this.bad_count = 0;
+		this.ok_count = 0;
+		this.good_count = 0;
+		
+		startTest();
+		
+		this.dpanel.setDrawAble(true);
+		this.dpanel.setStrokeWidth(45);
+		this.dpanel.invalidate();
+	}
+	
+	public void startTest()
+	{
+		this.largeText.setText(names.get(this.allPicRes.get(application
+				.getIndexOfUsedKana())));
 	}
 
 	/*
@@ -83,26 +107,28 @@ public class PracticePage extends Activity implements OnClickListener {
 	 */
 	@Override
 	public void onClick(View view) {
-
 		int actualKana = application.getIndexOfUsedKana();
-		// Log.w("actual", "" + actualKana);
-		if (start) {
-			showKana(this.allPicRes.get(actualKana));
-			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
-			this.iconSmall.setImageResource(smallPics.get(this.allPicRes
-					.get(actualKana)));
-			start = false;
-		}
 
-		if (view.getId() == R.id.drawButton) {
-			drawKana();
-		} else if (view.getId() == R.id.deleteButton) {
-			showKana(this.allPicRes.get(actualKana));
-		} else if (view.getId() == R.id.nextButton) {
+		if (view.getId() == R.id.solve) {
+			this.solve.setVisibility(View.GONE);
+			this.bad.setVisibility(View.VISIBLE);
+			this.ok.setVisibility(View.VISIBLE);
+			this.good.setVisibility(View.VISIBLE);
+			showSolve(actualKana);
+			this.dpanel.setDrawAble(false);
+		} else if (view.getId() == R.id.bad) {
+			this.bad_count++;
 			nextKana(actualKana);
-		} else if (view.getId() == R.id.backButton) {
-			previousKana(actualKana);
-		} else if (view.getId() == R.id.soundButton) {
+			Log.w("Button:", "bad");
+		} else if (view.getId() == R.id.ok) {
+			this.ok_count++;
+			nextKana(actualKana);
+			Log.w("Button:", "ok");
+		} else if (view.getId() == R.id.good) {
+			this.good_count++;
+			nextKana(actualKana);
+			Log.w("Button:", "good");
+		} else if (view.getId() == R.id.soundButton1) {
 			play = MediaPlayer.create(getApplicationContext(),
 					this.sounds.get(this.allPicRes.get(actualKana)));
 
@@ -137,35 +163,30 @@ public class PracticePage extends Activity implements OnClickListener {
 			});
 			play.start();
 		}
-	};
 
-	public void drawKana() {
-		this.dpanel.setDrawAble(true);
-		this.dpanel.setStrokeWidth(45);
-		this.dpanel.invalidate();
 	}
 
-	public void previousKana(int actualKana) {
-		if (actualKana > 0) {
-			actualKana--;
+	public void showSolve(int actualKana) {
+		if (this.allPicRes.size() >= (actualKana)) {
 			if (this.allPicRes.get(actualKana) == Integer.MIN_VALUE) {
-				while (this.allPicRes.get(actualKana) == Integer.MIN_VALUE
-						&& actualKana > 0) {
-					actualKana--;
+				while (this.allPicRes.get(actualKana) == Integer.MIN_VALUE) {
+					actualKana++;
+					if (actualKana >= this.allPicRes.size()) {
+						break;
+					}
 				}
 			}
+
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
 			this.iconSmall.setImageResource(smallPics.get(this.allPicRes
 					.get(actualKana)));
+
 			showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
 			this.dpanel.invalidate();
-		} else {
-			Toast.makeText(this, this.getString(R.string.prev_toast),
-					Toast.LENGTH_LONG).show();
 		}
 	}
-
+	
 	public void nextKana(int actualKana) {
 		boolean next = false;
 		if (this.allPicRes.size() >= (actualKana + 1)) {
@@ -184,11 +205,12 @@ public class PracticePage extends Activity implements OnClickListener {
 
 		if (next) {
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
-			this.iconSmall.setImageResource(smallPics.get(this.allPicRes
-					.get(actualKana)));
+			//this.iconSmall.setImageResource(smallPics.get(this.allPicRes
+			//		.get(actualKana)));
 
-			showKana(this.allPicRes.get(actualKana));
+			//showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
+			showKana(R.drawable.background);
 			this.dpanel.invalidate();
 		} else {
 			Toast.makeText(this, this.getString(R.string.next_toast),
@@ -215,5 +237,4 @@ public class PracticePage extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.practice_page, menu);
 		return true;
 	}
-
 }

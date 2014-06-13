@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
+
 
 public class FirstPage extends Activity implements OnClickListener {
 
@@ -53,19 +53,18 @@ public class FirstPage extends Activity implements OnClickListener {
 			Intent intent = new Intent(FirstPage.this, PracticePage.class);
 			FirstPage.this.startActivity(intent);
 		} else if (view.getId() == R.id.test) {
-			// call test page!
-			Toast.makeText(this, "TEST!!!!!", Toast.LENGTH_LONG).show();
+			Intent intent = new Intent(FirstPage.this, TestPage.class);
+			FirstPage.this.startActivity(intent);
 		} else if (view.getId() == R.id.table) {
 			Intent intent = new Intent(FirstPage.this, TablePage.class);
 			FirstPage.this.startActivity(intent);
-			// Toast.makeText(this, "Table!!!!!", Toast.LENGTH_LONG).show();
 		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.first_page, menu);
+		//getMenuInflater().inflate(R.menu.first_page, menu);
 		return true;
 	}
 }
