@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +33,7 @@ public class PracticePage extends Activity implements OnClickListener {
 	private Map<Integer, Integer> smallPics;
 	private Map<Integer, Integer> sounds;
 	private MediaPlayer play;
+	private AudioManager am;
 
 	/*
 	 * (non-Javadoc)
@@ -67,24 +67,20 @@ public class PracticePage extends Activity implements OnClickListener {
 		if (application.isOrder()) {
 			this.allPicRes.clear();
 			this.allPicRes = application.getAllPicRes();
-			/*
-			 * Log.w("order", "order true: " + application.isOrder() + " size:"
-			 * + allPicRes.size());
-			 */
 		} else {
 			this.allPicRes.clear();
 			this.allPicRes = application.getAllPicResRand();
-			/*
-			 * Log.w("order", "order false: " + application.isOrder() + " size:"
-			 * + allPicRes.size());
-			 */
 		}
 		names = application.getNames();
 		smallPics = application.getPicResSmall();
 		sounds = application.getSounds();
-		// Log.w("Sounds", "sounds: "+ sounds.size());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View view) {
 
@@ -98,8 +94,6 @@ public class PracticePage extends Activity implements OnClickListener {
 			start = false;
 		}
 
-		
-		
 		if (view.getId() == R.id.drawButton) {
 			drawKana();
 		} else if (view.getId() == R.id.deleteButton) {
@@ -112,8 +106,9 @@ public class PracticePage extends Activity implements OnClickListener {
 			play = MediaPlayer.create(getApplicationContext(),
 					this.sounds.get(this.allPicRes.get(actualKana)));
 
-			AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
-			// int volume_level= am.getStreamVolume(AudioManager.STREAM_MUSIC);
+			am = (AudioManager) getSystemService(AUDIO_SERVICE);
+
+			int current = am.getStreamVolume(AudioManager.STREAM_MUSIC);
 
 			switch (am.getRingerMode()) {
 			case AudioManager.RINGER_MODE_SILENT:
@@ -123,7 +118,10 @@ public class PracticePage extends Activity implements OnClickListener {
 				play.setVolume(0, 0);
 				break;
 			case AudioManager.RINGER_MODE_NORMAL:
-				play.setVolume(1, 1);
+				play.setVolume(current, current);
+				am.setStreamVolume(AudioManager.STREAM_MUSIC, current,
+						AudioManager.FLAG_SHOW_UI);
+
 				break;
 			}
 
@@ -143,19 +141,16 @@ public class PracticePage extends Activity implements OnClickListener {
 
 	public void drawKana() {
 		this.dpanel.setDrawAble(true);
-		// this.dpanel.setColor("BLACK");
 		this.dpanel.setStrokeWidth(45);
 		this.dpanel.invalidate();
 	}
 
 	public void previousKana(int actualKana) {
-		// Log.w("prev", "prev: " + actualKana);
 		if (actualKana > 0) {
 			actualKana--;
-			if(this.allPicRes.get(actualKana)==null)
-			{
-				while(this.allPicRes.get(actualKana)==null)
-				{
+			if (this.allPicRes.get(actualKana) == Integer.MIN_VALUE) {
+				while (this.allPicRes.get(actualKana) == Integer.MIN_VALUE
+						&& actualKana > 0) {
 					actualKana--;
 				}
 			}
@@ -172,20 +167,26 @@ public class PracticePage extends Activity implements OnClickListener {
 	}
 
 	public void nextKana(int actualKana) {
-		// Log.w("next", "next: " + actualKana);
-		if (this.allPicRes.size() > (actualKana + 1)) {
+		boolean next = false;
+		if (this.allPicRes.size() >= (actualKana + 1)) {
 			actualKana++;
-			if(this.allPicRes.get(actualKana)==null)
-			{
-				while(this.allPicRes.get(actualKana)==null)
-				{
+			next = true;
+			if (this.allPicRes.get(actualKana) == Integer.MIN_VALUE) {
+				while (this.allPicRes.get(actualKana) == Integer.MIN_VALUE) {
 					actualKana++;
+					if (actualKana >= this.allPicRes.size()) {
+						next = false;
+						break;
+					}
 				}
 			}
+		}
+
+		if (next) {
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
 			this.iconSmall.setImageResource(smallPics.get(this.allPicRes
 					.get(actualKana)));
-			
+
 			showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
 			this.dpanel.invalidate();

@@ -2,11 +2,13 @@ package app;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 import com.example.android.app.R;
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.util.Log;
 
 public class HiraKataApplication extends Application {
 
@@ -86,17 +88,18 @@ public class HiraKataApplication extends Application {
 	public void fillSounds() {
 		sounds = new HashMap<Integer, Integer>();
 		int[] sound = loadSounds();
+
 		int k = 0;
-		if (allPicRes.size() > 0) {
-			for (int j = 0; j < allPicRes.size(); j++) {
-				// Log.w("int", "j: " + j);
-				if (k == 47)
-					k = 0;
-				sounds.put(allPicRes.elementAt(j), sound[k]);
-				// Log.w("out", "sounds: " +
-				// sounds.get(allPicRes.elementAt(j)));
+		
+		for(int i = 0; i < this.allPicRes.size(); i++)
+		{
+			if(this.allPicRes.get(i) != Integer.MIN_VALUE)
+			{
+				sounds.put(this.allPicRes.get(i), sound[k]);
 				k++;
 			}
+			if (k == 46) 
+				k = 0;
 		}
 	}
 
@@ -140,10 +143,8 @@ public class HiraKataApplication extends Application {
 					picResSmall.put(resource, smallResource);
 					allPicRes.add(resource);
 					names.put(resource, (String) getResources().getText(id));
-				}
-				else
-				{
-					allPicRes.add(null);
+				} else {
+					allPicRes.add(Integer.MIN_VALUE);
 				}
 			}
 		} catch (Exception e) {
