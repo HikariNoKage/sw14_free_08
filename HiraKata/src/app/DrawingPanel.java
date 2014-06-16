@@ -77,6 +77,15 @@ public class DrawingPanel extends View {
 		this.invalidate();
 	}
 
+	public void newDrawingTest(Bitmap bitmap) {
+		this.dCanvas.drawBitmap(
+				getResizedBitmap(bitmap, this.getHeight(), this.getWidth()),
+				getMatrix(), null);
+
+		this.invalidate();
+	}
+	
+	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 

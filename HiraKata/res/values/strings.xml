@@ -22,10 +22,17 @@
     <string name="cb_test_red">Test only red</string>
     <string name="next_toast">No next character</string>
     <string name="prev_toast">No previous character!</string>
-    <string name="rb_order">Show in order</string>
-    <string name="rb_rand">Show random</string>
-    <string name="rb_all">Test all</string>
-    <string name="rb_red">Test only red</string>
+    <string name="title_activity_table_page">TablePage</string>
+    <string name="good">Good</string>
+    <string name="ok">OK</string>
+    <string name="bad">Bad</string>
+    <string name="solve">Solve</string>
+
+    <color name="color">#284610</color>
+    <color name="red">#FF4444</color>
+    <color name="orange">#FFFF44 </color>
+    <color name="green">#44FF44</color>
+
     <string name="kana_1">Hiragana:\n A</string>
     <string name="kana_2">Hiragana:\n I</string>
     <string name="kana_3">Hiragana:\n U</string>
@@ -118,10 +125,5 @@
     <string name="kana_101">Katakana:\n WA</string>
     <string name="kana_105">Katakana:\n WO</string>
     <string name="kana_106">Katakana:\n N</string>
-    <string name="title_activity_table_page">TablePage</string>
-    <color name="color">#284610</color>
-	<color name="red">#FF4444</color>
-	<color name="orange">#FFFF44 </color>
-	<color name="green">#44FF44</color>
-	
+
 </resources>

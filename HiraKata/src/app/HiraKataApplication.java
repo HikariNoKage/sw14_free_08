@@ -90,7 +90,7 @@ public class HiraKataApplication extends Application {
 		if (allPicRes.size() > 0) {
 			for (int j = 0; j < allPicRes.size(); j++) {
 				// Log.w("int", "j: " + j);
-				if (k == 47)
+				if (k == 46)
 					k = 0;
 				sounds.put(allPicRes.elementAt(j), sound[k]);
 				// Log.w("out", "sounds: " +
@@ -140,10 +140,12 @@ public class HiraKataApplication extends Application {
 					picResSmall.put(resource, smallResource);
 					allPicRes.add(resource);
 					names.put(resource, (String) getResources().getText(id));
+					//Log.w("isert", "i "+i);
 				}
 				else
 				{
-					allPicRes.add(null);
+					allPicRes.add(Integer.MIN_VALUE);
+					
 				}
 			}
 		} catch (Exception e) {

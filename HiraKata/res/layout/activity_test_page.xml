@@ -35,7 +35,6 @@
             android:layout_height="fill_parent"
             android:contentDescription="@string/description"
             android:src="@android:drawable/ic_menu_slideshow" />
-
     </LinearLayout>
 
     <app.DrawingPanel
@@ -60,33 +59,40 @@
             android:id="@+id/bad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:background="@color/red"
-            android:text="Bad" />
+            android:text="@string/bad"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:background="@color/orange"
-            android:text="OK" />
+            android:text="@string/ok"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/good"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:background="@color/green"
-            android:text="Good" />
+            android:text="@string/good"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/solve"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@color/color"
-            android:text="Solve" />
-
+            android:text="@string/solve"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
     </LinearLayout>
 
 </LinearLayout>

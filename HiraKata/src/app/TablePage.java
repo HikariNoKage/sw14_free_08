@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -30,6 +29,7 @@ public class TablePage extends Activity implements OnItemClickListener {
 				104, 107, 108, 109, 110 };
 		String name = "";
 		hk_mode = ((HiraKataApplication) this.getApplicationContext());
+		hk_mode.setOrder(true);
 		int numberOfDrawables = hk_mode.getNumberOfDrawables();
 		int j = 0;
 		try {
@@ -90,10 +90,10 @@ public class TablePage extends Activity implements OnItemClickListener {
 		
 		app = ((HiraKataApplication) this.getApplicationContext());
 
-		Log.w("index", (int)id+"");
+		//Log.w("index", (int)id+"");
 		
 		if (!app.contains(noKana, (int) id)) {
-			Log.w("index", (int)id+"");
+			//Log.w("index", (int)id+"");
 			app.setIndexOfUsedKana((int) id);
 			Intent intent = new Intent(TablePage.this, PracticePage.class);
 			TablePage.this.startActivity(intent);

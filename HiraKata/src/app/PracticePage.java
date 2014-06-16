@@ -168,6 +168,10 @@ public class PracticePage extends Activity implements OnClickListener {
 
 	public void nextKana(int actualKana) {
 		boolean next = false;
+		// for(int x = 0; x < this.allPicRes.size(); x++)
+		// {
+		// Log.w("loop practice", this.allPicRes.get(x)+" x" +x);
+		// }
 		if (this.allPicRes.size() >= (actualKana + 1)) {
 			actualKana++;
 			next = true;
@@ -180,19 +184,20 @@ public class PracticePage extends Activity implements OnClickListener {
 					}
 				}
 			}
-		}
 
-		if (next) {
-			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
-			this.iconSmall.setImageResource(smallPics.get(this.allPicRes
-					.get(actualKana)));
+			if (next) {
+				this.largeText
+						.setText(names.get(this.allPicRes.get(actualKana)));
+				this.iconSmall.setImageResource(smallPics.get(this.allPicRes
+						.get(actualKana)));
 
-			showKana(this.allPicRes.get(actualKana));
-			application.setIndexOfUsedKana(actualKana);
-			this.dpanel.invalidate();
-		} else {
-			Toast.makeText(this, this.getString(R.string.next_toast),
-					Toast.LENGTH_LONG).show();
+				showKana(this.allPicRes.get(actualKana));
+				application.setIndexOfUsedKana(actualKana);
+				this.dpanel.invalidate();
+			} else {
+				Toast.makeText(this, this.getString(R.string.next_toast),
+						Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 
@@ -212,7 +217,7 @@ public class PracticePage extends Activity implements OnClickListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.practice_page, menu);
+		// getMenuInflater().inflate(R.menu.practice_page, menu);
 		return true;
 	}
 

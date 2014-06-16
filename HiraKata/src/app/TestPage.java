@@ -8,6 +8,8 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
@@ -19,7 +21,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class TestPage extends Activity implements OnClickListener {
 
@@ -37,7 +38,6 @@ public class TestPage extends Activity implements OnClickListener {
 	private Map<Integer, Integer> sounds;
 	private MediaPlayer play;
 	private AudioManager am;
-	private boolean test_result = false;
 	private int bad_count, ok_count, good_count;
 
 	/*
@@ -55,7 +55,7 @@ public class TestPage extends Activity implements OnClickListener {
 		this.ok = (Button) findViewById(R.id.ok);
 		this.good = (Button) findViewById(R.id.good);
 		this.solve = (Button) findViewById(R.id.solve);
-		
+
 		DisplayMetrics displaymetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 		int with = (int) (displaymetrics.widthPixels / 3);
@@ -86,18 +86,25 @@ public class TestPage extends Activity implements OnClickListener {
 		this.bad_count = 0;
 		this.ok_count = 0;
 		this.good_count = 0;
-		
+
 		startTest();
-		
+
+		am = (AudioManager) getSystemService(AUDIO_SERVICE);
+
 		this.dpanel.setDrawAble(true);
 		this.dpanel.setStrokeWidth(45);
 		this.dpanel.invalidate();
 	}
-	
-	public void startTest()
-	{
+
+	public void startTest() {
 		this.largeText.setText(names.get(this.allPicRes.get(application
 				.getIndexOfUsedKana())));
+		this.iconSmall.setImageResource(R.drawable.ic_launcher);
+		this.solve.setVisibility(View.VISIBLE);
+		this.bad.setVisibility(View.GONE);
+		this.ok.setVisibility(View.GONE);
+		this.good.setVisibility(View.GONE);
+		this.dpanel.setDrawAble(true);
 	}
 
 	/*
@@ -119,51 +126,53 @@ public class TestPage extends Activity implements OnClickListener {
 		} else if (view.getId() == R.id.bad) {
 			this.bad_count++;
 			nextKana(actualKana);
-			Log.w("Button:", "bad");
+			startTest();
 		} else if (view.getId() == R.id.ok) {
 			this.ok_count++;
+			startTest();
 			nextKana(actualKana);
-			Log.w("Button:", "ok");
 		} else if (view.getId() == R.id.good) {
 			this.good_count++;
 			nextKana(actualKana);
-			Log.w("Button:", "good");
+			startTest();
 		} else if (view.getId() == R.id.soundButton1) {
 			play = MediaPlayer.create(getApplicationContext(),
 					this.sounds.get(this.allPicRes.get(actualKana)));
 
-			am = (AudioManager) getSystemService(AUDIO_SERVICE);
-
-			int current = am.getStreamVolume(AudioManager.STREAM_MUSIC);
-
-			switch (am.getRingerMode()) {
-			case AudioManager.RINGER_MODE_SILENT:
-				play.setVolume(0, 0);
-				break;
-			case AudioManager.RINGER_MODE_VIBRATE:
-				play.setVolume(0, 0);
-				break;
-			case AudioManager.RINGER_MODE_NORMAL:
-				play.setVolume(current, current);
-				am.setStreamVolume(AudioManager.STREAM_MUSIC, current,
-						AudioManager.FLAG_SHOW_UI);
-
-				break;
-			}
-
-			this.soundButton.setEnabled(false);
-
-			play.setOnCompletionListener(new OnCompletionListener() {
-
-				@Override
-				public void onCompletion(MediaPlayer mpalmost) {
-					soundButton.setEnabled(true);
-					mpalmost.release();
-				}
-			});
+			audioSet();
 			play.start();
 		}
+	}
 
+	public void audioSet() {
+
+		int current = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+		switch (am.getRingerMode()) {
+		case AudioManager.RINGER_MODE_SILENT:
+			play.setVolume(0, 0);
+			break;
+		case AudioManager.RINGER_MODE_VIBRATE:
+			play.setVolume(0, 0);
+			break;
+		case AudioManager.RINGER_MODE_NORMAL:
+			play.setVolume(current, current);
+			am.setStreamVolume(AudioManager.STREAM_MUSIC, current,
+					AudioManager.FLAG_SHOW_UI);
+
+			break;
+		}
+
+		this.soundButton.setEnabled(false);
+
+		play.setOnCompletionListener(new OnCompletionListener() {
+
+			@Override
+			public void onCompletion(MediaPlayer mpalmost) {
+				soundButton.setEnabled(true);
+				mpalmost.release();
+			}
+		});
 	}
 
 	public void showSolve(int actualKana) {
@@ -181,17 +190,25 @@ public class TestPage extends Activity implements OnClickListener {
 			this.iconSmall.setImageResource(smallPics.get(this.allPicRes
 					.get(actualKana)));
 
-			showKana(this.allPicRes.get(actualKana));
+			solveKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
 			this.dpanel.invalidate();
 		}
 	}
-	
+
 	public void nextKana(int actualKana) {
 		boolean next = false;
-		if (this.allPicRes.size() >= (actualKana + 1)) {
+		
+//		for(int x = 0; x < this.allPicRes.size(); x++)
+//		{
+//			Log.w("loop", this.allPicRes.get(x)+"");
+//		}
+		
+		if (this.allPicRes.size() > (actualKana + 1)) {
 			actualKana++;
 			next = true;
+			Log.w("size", this.allPicRes.size()+"");
+			Log.w("actual", actualKana+"");
 			if (this.allPicRes.get(actualKana) == Integer.MIN_VALUE) {
 				while (this.allPicRes.get(actualKana) == Integer.MIN_VALUE) {
 					actualKana++;
@@ -205,22 +222,23 @@ public class TestPage extends Activity implements OnClickListener {
 
 		if (next) {
 			this.largeText.setText(names.get(this.allPicRes.get(actualKana)));
-			//this.iconSmall.setImageResource(smallPics.get(this.allPicRes
-			//		.get(actualKana)));
-
-			//showKana(this.allPicRes.get(actualKana));
 			application.setIndexOfUsedKana(actualKana);
 			showKana(R.drawable.background);
 			this.dpanel.invalidate();
 		} else {
-			Toast.makeText(this, this.getString(R.string.next_toast),
-					Toast.LENGTH_LONG).show();
+			endDialog();
 		}
 	}
 
 	public void showKana(int id) {
 		Bitmap drawable = BitmapFactory.decodeResource(getResources(), id);
 		this.dpanel.newDrawing(drawable);
+		this.dpanel.invalidate();
+	}
+
+	public void solveKana(int id) {
+		Bitmap drawable = BitmapFactory.decodeResource(getResources(), id);
+		this.dpanel.newDrawingTest(drawable);
 		this.dpanel.invalidate();
 	}
 
@@ -234,7 +252,29 @@ public class TestPage extends Activity implements OnClickListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.practice_page, menu);
+		// getMenuInflater().inflate(R.menu.practice_page, menu);
 		return true;
+	}
+
+	public void endDialog() {
+		AlertDialog.Builder endDialog = new AlertDialog.Builder(this);
+
+		endDialog.setTitle("Your result:");
+
+		String result = "Good: " + this.good_count + "\nOK: " + this.ok_count
+				+ "\nBad: " + this.bad_count;
+
+		endDialog.setMessage(result);
+		endDialog.setCancelable(false);
+		endDialog.setPositiveButton("OK",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						TestPage.this.finish();
+					}
+				});
+		AlertDialog alert = endDialog.create();
+		alert.show();
 	}
 }
