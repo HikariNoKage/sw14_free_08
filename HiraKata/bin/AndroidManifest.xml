@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.app"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:name="app.HiraKataApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="app.StartPage"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="app.PracticePage"
+            android:label="@string/title_activity_practice_page" >
+        </activity>
+        <activity
+            android:name="app.FirstPage"
+            android:label="@string/title_activity_first_page" >
+        </activity>
+        <activity
+            android:name="app.TablePage"
+            android:label="@string/title_activity_table_page" >
+        </activity>
+        <activity
+            android:name="app.TestPage"
+            android:label="@string/title_activity_test_page" >
+        </activity>
+    </application>
+
+</manifest>
